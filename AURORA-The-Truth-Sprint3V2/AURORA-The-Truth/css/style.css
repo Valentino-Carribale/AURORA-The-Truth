@@ -1,0 +1,84 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #eeeeee;
+  color: #222222;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+header {
+  border-bottom: 1px solid #999999;
+  padding-bottom: 15px;
+}
+
+h1 {
+  font-size: 26px;
+}
+
+main {
+  background-color: white;
+  border: 1px solid #999999;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+p {
+  line-height: 1.5;
+}
+
+.imagenes {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.escenario {
+  width: 75%;
+  height: 240px;
+  border: 1px solid #999999;
+}
+
+.personaje {
+  width: 25%;
+  height: 240px;
+  border: 1px solid #999999;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px 5px 5px 0;
+  cursor: pointer;
+}
+
+footer {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .escenario,
+  .personaje {
+    height: 150px;
+  }
+}
+
+/* Efecto 1: el botón cambia al pasar el mouse o enfocarlo. */
+button {
+  transition: background-color 0.2s;
+}
+
+button:hover,
+button:focus {
+  background-color: #dddddd;
+}
+
+/* Efecto 2: el contenido aparece suavemente al cambiar de pantalla. */
+section {
+  animation: aparecer 0.3s;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
