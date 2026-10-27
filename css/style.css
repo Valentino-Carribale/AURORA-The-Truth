@@ -1,0 +1,321 @@
+/* ===== RESET Y BASE ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #0a0e17;
+  background-image: 
+    linear-gradient(rgba(20, 30, 50, 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 30, 50, 0.4) 1px, transparent 1px);
+  background-size: 40px 40px;
+  color: #e8f0ff;
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* ===== HEADER / NAV ===== */
+header {
+  background: #0d1525;
+  border-bottom: 1px solid #1a2a40;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1,
+.logo {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+header h1 span,
+.logo span {
+  color: #7dd3fc;
+  font-weight: 400;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a,
+nav button {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+
+nav a:hover,
+nav button:hover {
+  color: #e2e8f0;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+main {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* ===== LAYOUT DE ESCENA ===== */
+.imagenes {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  align-items: stretch;
+}
+
+.personaje {
+  width: 28%;
+  min-height: 280px;
+  background: #0f172a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.escenario {
+  flex: 1;
+  min-height: 280px;
+  background: #0f172a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* ===== PANEL DE DECISIÓN ===== */
+.decision,
+section {
+  background: #0f172a;
+  border: 1px solid #1e3a5f;
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-top: 8px;
+}
+
+.decision .etiqueta,
+section .etiqueta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #7dd3fc;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.decision h2,
+section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #f1f5f9;
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.decision p,
+section p {
+  color: #94a3b8;
+  font-size: 15px;
+  margin-bottom: 24px;
+  max-width: 520px;
+}
+
+/* ===== BOTONES DE OPCIÓN ===== */
+.opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+button,
+.opcion {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+  padding: 14px 18px;
+  background: transparent;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  color: #cbd5e1;
+  font-size: 15px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* círculo indicador */
+button::before,
+.opcion::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #64748b;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+/* estado hover */
+button:hover,
+.opcion:hover {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.06);
+  color: #f1f5f9;
+}
+
+button:hover::before,
+.opcion:hover::before {
+  border-color: #38bdf8;
+}
+
+/* estado seleccionado / activo */
+button.selected,
+.opcion.selected,
+button:focus,
+.opcion:focus {
+  border-color: #a78bfa;
+  background: rgba(167, 139, 250, 0.12);
+  color: #f1f5f9;
+  outline: none;
+}
+
+button.selected::before,
+.opcion.selected::before,
+button:focus::before,
+.opcion:focus::before {
+  border-color: #a78bfa;
+  background: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.25);
+}
+
+/* botón primario (Comenzar, Volver al inicio, etc.) */
+button.primario {
+  background: #22d3ee;
+  border: none;
+  color: #0f172a;
+  font-weight: 600;
+  justify-content: center;
+  max-width: 220px;
+  border-radius: 10px;
+  padding: 13px 28px;
+}
+
+button.primario::before {
+  display: none;
+}
+
+button.primario:hover {
+  background: #67e8f9;
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.35);
+}
+
+/* botón secundario / outline */
+button.secundario {
+  background: transparent;
+  border: 1px solid #475569;
+  color: #e2e8f0;
+  justify-content: center;
+  max-width: 180px;
+}
+
+button.secundario::before {
+  display: none;
+}
+
+button.secundario:hover {
+  border-color: #94a3b8;
+  background: rgba(148, 163, 184, 0.08);
+}
+
+/* ===== FINALES ===== */
+.final .etiqueta {
+  color: #f87171;
+}
+
+.final h2 {
+  font-size: 24px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: #64748b;
+  font-size: 13px;
+  border-top: 1px solid #1e293b;
+  margin-top: 40px;
+}
+
+/* ===== ANIMACIÓN DE ENTRADA ===== */
+section,
+.decision {
+  animation: aparecer 0.35s ease-out;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .imagenes {
+    flex-direction: column;
+  }
+
+  .personaje,
+  .escenario {
+    width: 100%;
+    min-height: 200px;
+  }
+
+  .decision,
+  section {
+    padding: 22px 18px;
+  }
+
+  button,
+  .opcion {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px 16px;
+  }
+
+  .personaje,
+  .escenario {
+    min-height: 160px;
+  }
+}

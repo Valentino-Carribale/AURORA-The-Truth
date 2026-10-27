@@ -32,7 +32,7 @@ export const escenas = [
     pregunta: "¿Dónde querés postularte?",
     opciones: [
       { id: "novasphere", texto: "NovaSphere" },
-      { id: "northbio", texto: "NorthBio" },
+      { id: "northbio", texto: "NorthBio (pendiente)" },
     ]
   },
   {
@@ -45,7 +45,7 @@ export const escenas = [
     pregunta: "¿Qué hacés?",
     opciones: [
       { id: "investigar", texto: "Investigar las anomalías" },
-      { id: "ignorar", texto: "Ignorar el asunto" },
+      { id: "ignorar", texto: "Ignorar el asunto (pendiente)" },
     ]
   },
   {
@@ -57,7 +57,7 @@ export const escenas = [
     pregunta: "¿Qué hacés con las pruebas?",
     opciones: [
       { id: "guardar", texto: "Guardar copias de las pruebas" },
-      { id: "borrar", texto: "Borrar las pruebas" },
+      { id: "borrar", texto: "Borrar las pruebas (pendiente)" },
     ]
   },
   {
@@ -70,7 +70,7 @@ export const escenas = [
     pregunta: "¿Qué decidís?",
     opciones: [
       { id: "revisar", texto: "Revisar los archivos ocultos" },
-      { id: "cerrar", texto: "Cerrar el archivo" },
+      { id: "cerrar", texto: "Cerrar el archivo (pendiente)" },
     ]
   },
   {
@@ -94,7 +94,7 @@ export const escenas = [
     pregunta: "¿Cómo seguís?",
     opciones: [
       { id: "investigar-responsable", texto: "Investigar al responsable" },
-      { id: "aceptar-explicacion", texto: "Aceptar la explicación oficial" },
+      { id: "aceptar-explicacion", texto: "Aceptar la explicación oficial (pendiente)" },
     ]
   },
   {
@@ -106,7 +106,7 @@ export const escenas = [
     ],
     pregunta: "¿Querés continuar la investigación?",
     opciones: [
-      { id: "seguir-pista", texto: "Guardar los archivos y seguir la pista" },
+      { id: "seguir-pista", texto: "Guardar los archivos y seguir la pista (pendiente)" },
       { id: "terminar", texto: "Terminar la investigación" },
     ]
   },
