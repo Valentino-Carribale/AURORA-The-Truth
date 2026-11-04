@@ -478,7 +478,7 @@ export const escenas = [
     animacion: "",
     textos: [
       "Aceptaste la explicación oficial del accidente y dejaste de buscar al responsable. La investigación termina sin que descubras la verdad.",
-      "La empresa descubre tu indagación. NorthBio te despide y no conseguís la estabilidad que necesitabas. Tu mamá muere.",
+      "La empresa descubre tu indagación. NovaSphere te despide y no conseguís la estabilidad que necesitabas. Tu mamá muere.",
       "Los registros permanecen cerrados. La versión oficial es la única que queda.",
     ],
     pregunta: "",
@@ -499,7 +499,7 @@ export const escenas = [
     animacion: "",
     textos: [
       "Encontraste la inscripción AURORA, pero decidiste que continuar investigando era demasiado peligroso. Abandonaste la pista sin descubrir toda la verdad.",
-      "La empresa descubre tu investigación. NorthBio te despide y, sin conseguir la estabilidad que necesitabas, tu mamá muere.",
+      "La empresa descubre tu investigación. NovaSphere te despide y, sin conseguir la estabilidad que necesitabas, tu mamá muere.",
       "La investigación queda inconclusa.",
     ],
     pregunta: "",
