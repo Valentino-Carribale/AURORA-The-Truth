@@ -1,84 +1,89 @@
-# AURORA: The Truth - Sprint 3
+# AURORA: The Truth - Sprint 4
 
-Primera versión de prueba. Incluye un recorrido de NovaSphere hasta el final de investigación inconclusa.
+Versión avanzada jugable, todavía en desarrollo. Están implementados los diez nodos de decisión y los ocho finales. La interfaz se acerca a los mockups y deja vacíos los espacios para escenarios, personajes y animaciones.
 
-## Abrir el proyecto, igual que PokeApp
+## Abrir el proyecto
 
-Descomprimí el ZIP y abrí la carpeta en VS Code. Con la extensión Live Server, hacé clic derecho en `index.html` y elegí Open with Live Server.
+Como en PokeApp y en el Sprint 3: descomprimí el ZIP, abrí la carpeta en VS Code y ejecutá `index.html` con **Open with Live Server**. Los módulos `import` y `export` necesitan un servidor local; no se abre con doble clic desde `file://`.
 
+No hay instalación de paquetes, compilación, cuentas ni guardado persistente. Inicio vuelve al menú y Comenzar reinicia todas las variables. Al recargar la página se vuelve a empezar, de acuerdo con el alcance del Sprint 4.
 
-## Organización
+## Organización conservada
 
-- `index.html`: estructura y script de tipo `module`.
-- `css/style.css`: diseño básico y los dos efectos CSS del sprint.
-- `js/app.js`: variables, funciones, ciclos, condiciones, `querySelector`, `innerHTML` y eventos de clic.
-- `js/db/escenas.js`: base de datos de contenido en un array de objetos, exportada e importada por `app.js`, como los catálogos de PokeApp. No es una base SQL ni necesita servidor de datos.
-- `assets/img/`: espacio para las imágenes futuras.
-- `assets/videos/`: espacio para la exportación de Adobe Animate.
+- `index.html`: cabecera, contenedor de pantallas y pie.
+- `css/style.css`: composición, colores, botones, adaptación a móvil y efectos de interfaz.
+- `js/app.js`: variables, estados, renderizado, eventos y condiciones de finales.
+- `js/db/escenas.js`: array de objetos exportado con los textos, opciones y rutas multimedia.
+- `assets/img/`: imágenes a incorporar por el equipo.
+- `assets/videos/AnnieAnimacion1.mp4`: video de prueba recibido, conservado sin modificar.
+- `docs/`: pruebas, avance, recursos pendientes y registro histórico del Sprint 3.
 
+La carpeta `sprints` se conserva sin modificar en el ZIP y no se utilizó para el desarrollo de esta actualización.
 
-## Recorrido implementado
+## Cómo está programado
 
-Inicio → introducción → NovaSphere → investigar anomalías → guardar copias → revisar archivos ocultos → datos encubiertos → investigar al responsable → terminar la investigación → final de investigación inconclusa.
+Se mantiene el enfoque de la versión anterior: `import`/`export`, arrays, objetos, `const`/`let`, ciclos, condicionales, `querySelector`, `innerHTML` y `addEventListener("click", function () { ... })`.
 
-Las otras seis opciones siguen visibles y no hacen nada al pulsarlas, como se solicitó para esta versión. Cada pantalla conserva una opción que permite completar el recorrido. No se implementaron NorthBio ni otros finales.
+`mostrarEscena(id)` busca un objeto en la base de datos y escribe su HTML. Después, una función `iniciar...` conecta los botones de esa pantalla. Por ejemplo, `iniciarRegistros()` conecta Guardar y Borrar. Los paneles narrativos tienen una sola continuación; las diez decisiones tienen dos opciones funcionales.
 
-## Variables y consecuencia
+Los puntos y estados permanecen dentro de JavaScript. Las consecuencias se muestran con textos que reconocen lo elegido, por ejemplo conservar o borrar copias, cerrar un informe o salir sin inspeccionar un dispositivo. Las condiciones de los seis finales de NorthBio se concentran en `determinarFinal()`. Los finales de NovaSphere se activan por sus decisiones específicas.
 
-`investigacion` comienza en 0 y suma 10 al investigar anomalías, guardar copias, revisar los archivos e investigar al responsable. Termina en 40 y nunca aparece en la interfaz.
+Para localizar una escena, buscá su `id` en `escenas.js` y su función `iniciar...` en `app.js`. No hay un motor externo ni una librería de juego.
 
-`empresaElegida` registra NovaSphere. `pruebasGuardadas` cambia a `true` al guardar y hace aparecer el texto «Conservás las copias de los registros que guardaste» en el informe. `estadoJuego` pasa por Inicio, En_Curso y Finalizado.
+## Recorridos y finales
 
-Comenzar reinicia las variables. No hay guardado local, cuentas ni funciones adicionales al prototipo.
+Ahora funcionan también las opciones que antes figuraban como pendientes:
 
-## Dos efectos CSS
+- Ignorar anomalías lleva a la limpieza y al informe.
+- Borrar pruebas permite seguir, reconociendo que ya no hay copias.
+- Cerrar el informe lleva a una nueva postulación y después a NorthBio.
+- Aceptar la explicación oficial termina en el final 1.
+- Terminar la investigación de AURORA conserva el final 2 del Sprint 3.
+- Seguir la pista conecta NovaSphere con la sala restringida de NorthBio.
+- Alejarse, salir sin tocar el dispositivo o cerrar el sistema lleva a la propuesta, sin inventar un final anticipado.
+- Aceptar o rechazar el experimento lleva a uno de los seis finales de NorthBio según la investigación reunida.
 
-1. Hover/foco del botón: el fondo cambia suavemente para indicar la opción que estás señalando o seleccionando con el teclado.
-2. Aparición del panel: al cambiar de pantalla, su contenido aparece con un fundido de 0,3 segundos.
+Los ocho resultados fueron alcanzados en el navegador. El registro detallado está en [docs/pruebas-sprint4.md](docs/pruebas-sprint4.md).
 
+## Agregar recursos sin cambiar la lógica
 
-## Registro de Pruebas WebApp
+Cada objeto de `escenas.js` tiene tres campos inicialmente vacíos:
 
-Registro breve de pruebas - 23/10/2026
+```js
+imagen: "",
+personaje: "",
+animacion: "",
+```
 
-Carga con el servidor local: app.js importa bien escenas.js y arranca en Inicio. Correcto.
+Al disponer de archivos, completá las rutas en las escenas correspondientes. Por ejemplo, para probar el video recibido en Registros alterados:
 
-Recorrido completo: llegué hasta investigación inconclusa sin problemas. Correcto.
+```js
+imagen: "",
+personaje: "",
+animacion: "./assets/videos/AnnieAnimacion1.mp4",
+```
 
-NorthBio (ignorar, borrar, cerrar, aceptar la explicación y seguir la pista): se queda en la misma pantalla y no toca las variables. Correcto.
+`imagen` usa el cuadro grande de escenario, `personaje` el cuadro de Annie y `animacion` reproduce un MP4 en ese mismo cuadro. Si hay animación, tiene prioridad sobre la imagen de personaje. Se reproduce una vez, silenciada, sin controles y al entrar a la escena. Las rutas vacías no crean etiquetas de medios ni piden archivos inexistentes.
 
-Investigación: los valores internos suben bien de 0 a 10, 20, 30 y 40. Correcto.
-
-Guardar copias: el estado queda en verdadero y se ve la consecuencia en el informe. Correcto.
-
-Terminar investigación: pasa a Finalizado y da un solo final. Correcto.
-
-Volver y empezar de nuevo: reinicia las variables como corresponde. Correcto.
-
-Cuadros de imágenes: quedan vacíos y no aparecen imágenes rotas. Correcto.
-
-CSS: el cambio de fondo en los botones y la aparición del panel ya están implementados.
-
-El recorrido y los botones los revisé en el navegador por HTTP. Las variables las comprobé ejecutando el mismo código con un documento, sin meter herramientas de prueba en el proyecto.
-
-
-## Registro de pruebas Animación (NO DEFINITIVA PARA SU USO EN EL JUEGO)
-
-Calcado de imagen provista por IA en Ilustrator
-
-Separación en capas para su posterior coloración y animación.
-
-Animación basica hecha en Adobe Anímate
-
-Carga de la Animación en el Repositorio 
+Los recursos que no pueden cargarse se retiran y el cuadro queda vacío; esto no impide continuar. Si un navegador bloquea la reproducción automática, las decisiones siguen disponibles. Se puede usar PNG/JPG/GIF en los campos de imagen. Para producción, probar el formato final en los navegadores del equipo.
 
 
 ## División del trabajo
 
-Tomás Barcudi: Revisión de Sprint 3
+Tomás Barcudi: Producción de recursos visuales.
 
-Agustín Perriello: Producción e ideación de la Animación de prueba de Annie
+Agustín Perriello: Producción e ideación de la Animaciónes.
 
-Valentino Carribale: Redacción y mejoras en animación Sprint 3
+Valentino Carribale: Redacción, organizacion y producción de recursos de Sprint 4
 
-Agustín Bianchi: Programación, corrección y pruebas en WebApp de Sprint 3
+Agustín Bianchi: Programación, corrección y pruebas en WebApp de Sprint 4
+
+
+
+## Documentación del sprint
+
+- [Pruebas y correcciones](docs/pruebas-sprint4.md).
+- [Avance y tareas pendientes](docs/avance-sprint4.md).
+- [Recursos y escenas previstas](docs/recursos-sprint4.md).
+- [Registro del Sprint 3](docs/registro-sprint3.md), conservado como historial; sus opciones pendientes ya están implementadas en esta versión.
+
