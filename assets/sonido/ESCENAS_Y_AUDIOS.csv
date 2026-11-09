@@ -1,0 +1,39 @@
+﻿Rama;Imagen;Codigos;Archivos de audio
+NorthBio;01_elegir_postulacion.png;J, D1;Ambientes/J_ambiente_ciudad.wav | Efectos/D1_clic_seleccion.wav
+NorthBio;02_novasphere.png;H;Ambientes/H_ambiente_oficina.wav
+NorthBio;03_northbio.png;A;Ambientes/A_ambiente_laboratorio.wav
+NorthBio;04_sala_restringida.png;A, F2;Ambientes/A_ambiente_laboratorio.wav | Efectos/F2_zumbido_grave.wav
+NorthBio;05_investigar_mas.png;A, B, C;Ambientes/A_ambiente_laboratorio.wav | Efectos/B_puerta_futurista.mp3 | Efectos/C_pasos_pasillo.wav
+NorthBio;06_alejarse.png;A, C;Ambientes/A_ambiente_laboratorio.wav | Efectos/C_pasos_pasillo.wav
+NorthBio;07_tecnologia_neuronal_SOLO_FONDO.png;A, D2;Ambientes/A_ambiente_laboratorio.wav | Efectos/D2_encendido_interfaz.wav
+NorthBio;08_inspeccionar_dispositivo.png;A, D1;Ambientes/A_ambiente_laboratorio.wav | Efectos/D1_clic_seleccion.wav
+NorthBio;09_no_tocar_y_salir.png;A, C, B;Ambientes/A_ambiente_laboratorio.wav | Efectos/C_pasos_pasillo.wav | Efectos/B_puerta_futurista.mp3
+NorthBio;10_transferencia_hacia_AURORA.png;A, D2;Ambientes/A_ambiente_laboratorio.wav | Efectos/D2_encendido_interfaz.wav
+NorthBio;11_seguir_camino.png;A, E, D1;Ambientes/A_ambiente_laboratorio.wav | Efectos/E_teclado.wav | Efectos/D1_clic_seleccion.wav
+NorthBio;12_cerrar_sistema.png;A, D1;Ambientes/A_ambiente_laboratorio.wav | Efectos/D1_clic_seleccion.wav
+NorthBio;13_propuesta_AURORA_SOLO_FONDO.png;A;Ambientes/A_ambiente_laboratorio.wav
+NorthBio;14_aceptar_experimento_TRANSICION.png;A, D1;Ambientes/A_ambiente_laboratorio.wav | Efectos/D1_clic_seleccion.wav
+NorthBio;15_rechazar_prueba_TRANSICION.png;A, C;Ambientes/A_ambiente_laboratorio.wav | Efectos/C_pasos_pasillo.wav
+NorthBio;16_FIN100_aceptar_despertar.png;F1, F2, D2, A;Efectos/F1_glitch_electrico.wav | Efectos/F2_zumbido_grave.wav | Efectos/D2_encendido_interfaz.wav | Ambientes/A_ambiente_laboratorio.wav
+NorthBio;17_FIN100_rechazar_epilogo.png;G;Musica/G_Sad_Trio_Kevin_MacLeod.mp3
+NorthBio;18_FINAL_aceptar_menos50.png;A, D2;Ambientes/A_ambiente_laboratorio.wav | Efectos/D2_encendido_interfaz.wav
+NorthBio;19_FINAL_aceptar_50a99.png;A, D2;Ambientes/A_ambiente_laboratorio.wav | Efectos/D2_encendido_interfaz.wav
+NorthBio;20_FINAL_rechazar_menos50.png;G;Musica/G_Sad_Trio_Kevin_MacLeod.mp3
+NorthBio;21_FINAL_rechazar_50a99.png;G, I;Musica/G_Sad_Trio_Kevin_MacLeod.mp3 | Efectos/I_papeles.wav
+NovaSphere;NS01_detectas_anomalias.png;H, D2;Ambientes/H_ambiente_oficina.wav | Efectos/D2_encendido_interfaz.wav
+NovaSphere;NS02_investigas_anomalias.png;H, E, D1;Ambientes/H_ambiente_oficina.wav | Efectos/E_teclado.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS03_ignoras_asunto.png;H, D1;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS04_encontras_registros_alterados.png;H, D2;Ambientes/H_ambiente_oficina.wav | Efectos/D2_encendido_interfaz.wav
+NovaSphere;NS05_guardas_copias.png;H, D1, D2;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav | Efectos/D2_encendido_interfaz.wav
+NovaSphere;NS06_borras_pruebas.png;H, D1;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS07_informe_accidente.png;H, E;Ambientes/H_ambiente_oficina.wav | Efectos/E_teclado.wav
+NovaSphere;NS08_revisas_archivos_ocultos.png;H, D1, E;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav | Efectos/E_teclado.wav
+NovaSphere;NS09_cerras_archivo.png;H, D1;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS10_descubris_encubrimiento.png;H, F2;Ambientes/H_ambiente_oficina.wav | Efectos/F2_zumbido_grave.wav
+NovaSphere;NS11_investigas_responsable.png;H, E, D2;Ambientes/H_ambiente_oficina.wav | Efectos/E_teclado.wav | Efectos/D2_encendido_interfaz.wav
+NovaSphere;NS12_aceptas_explicacion_oficial_TRANSICION.png;H, D1;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS13_encontras_inscripcion_AURORA.png;H, D2;Ambientes/H_ambiente_oficina.wav | Efectos/D2_encendido_interfaz.wav
+NovaSphere;NS14_guardas_archivos_y_seguís_pista.png;H, D2, C;Ambientes/H_ambiente_oficina.wav | Efectos/D2_encendido_interfaz.wav | Efectos/C_pasos_pasillo.wav
+NovaSphere;NS15_terminas_investigacion_TRANSICION.png;H, D1;Ambientes/H_ambiente_oficina.wav | Efectos/D1_clic_seleccion.wav
+NovaSphere;NS16_FINAL_explicacion_oficial_SOLO_FONDO.png;G;Musica/G_Sad_Trio_Kevin_MacLeod.mp3
+NovaSphere;NS17_FINAL_investigacion_inconclusa_SOLO_FONDO.png;G;Musica/G_Sad_Trio_Kevin_MacLeod.mp3
