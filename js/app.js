@@ -1,4 +1,5 @@
 import { escenas } from "./db/escenas.js";
+import { iniciarAudio, prepararAudio, pausarAudio } from "./audio.js";
 
 const pantalla = document.querySelector("#pantalla");
 let investigacion = 0;
@@ -50,14 +51,18 @@ function mostrarEscena(id) {
           </div>
           <div class="contenido-escena">
             <div class="imagenes" role="group" aria-label="Recursos visuales de ${escena.titulo}">
-              <div class="escenario" aria-label="Espacio para el escenario"></div>
-              <div class="personaje" aria-label="Espacio para el personaje"></div>
+              <div class="escenario" aria-label="Escenario"></div>
+              <div class="personaje" aria-label="Personaje" hidden></div>
             </div>
             <div class="decision">
               <p class="etiqueta">${escena.etiqueta}</p>
               <h2 id="titulo-escena" tabindex="-1">${escena.titulo}</h2>
               <div id="consecuencia" role="status"></div>
               <div id="texto"></div>
+              <div class="controles-narracion">
+                <button type="button" class="boton-menu" id="boton-narracion">Leer narración</button>
+                <p id="estado-audio" role="status"></p>
+              </div>
               <div id="opciones" class="opciones"></div>
             </div>
           </div>
@@ -83,6 +88,7 @@ function mostrarEscena(id) {
       }
 
       cargarRecursos(escena);
+      prepararAudio(escena);
       document.querySelector("#titulo-escena").focus({ preventScroll: true });
       window.scrollTo(0, 0);
       return;
@@ -91,43 +97,63 @@ function mostrarEscena(id) {
   pantalla.innerHTML = "<p>No se pudo abrir la escena. Usá Inicio para volver a empezar.</p>";
 }
 
-// Las rutas vacías dejan los cuadros sin contenido hasta que el equipo agregue recursos.
+// GIF e imágenes usan <img>; MP4/WebM/Ogg conservan el reproductor de video.
 function cargarRecursos(escena) {
+  const imagenes = document.querySelector(".imagenes");
   const escenario = document.querySelector(".escenario");
   const personaje = document.querySelector(".personaje");
-  let imagen = escena.imagen;
 
-  // La llegada a la propuesta muestra la acción que acabás de elegir.
-  if (escena.id === "propuesta") {
-    if (estados.sala === "Ignorada") {
-      imagen = "./assets/img/06_alejarse.png";
-    } else if (estados.dispositivo === "Ignorado") {
-      imagen = "./assets/img/09_no_tocar_y_salir.png";
-    } else if (estados.transferencia === "Sistema_Cerrado") {
-      imagen = "./assets/img/12_cerrar_sistema.png";
-    } else if (estados.transferencia === "Camino_Seguido") {
-      imagen = "./assets/img/11_seguir_camino.png";
+  if (escena.cinematica) {
+    escenario.innerHTML = `<video src="${escena.cinematica}" controls playsinline preload="metadata" aria-label="Cinemática de apertura"></video>`;
+    const video = escenario.querySelector("video");
+    video.addEventListener("play", pausarAudio);
+  } else if (escena.imagen) {
+    escenario.innerHTML = `<img src="${escena.imagen}" alt="${escena.titulo}">`;
+  } else if (escena.id === "introduccion") {
+    escenario.innerHTML = `<div class="cinematica-pendiente"><p>Cinemática de apertura</p><small>Próximamente · Podés continuar con la historia.</small></div>`;
+  } else {
+    imagenes.hidden = true;
+    document.querySelector(".contenido-escena").classList.add("sin-recursos");
+  }
+
+  if (escena.animacion || escena.personaje) {
+    const ruta = escena.animacion || escena.personaje;
+    personaje.hidden = false;
+    personaje.classList.add(escena.posicion || "annie");
+    if (/\.(mp4|webm|ogv|ogg)$/i.test(ruta)) {
+      personaje.innerHTML = `<video src="${ruta}" autoplay muted playsinline aria-label="Animación de ${escena.titulo}"></video>`;
+    } else {
+      personaje.innerHTML = `<img src="${ruta}" alt="${escena.posicion === "empleado" ? "Representante de NorthBio" : "Annie"}">`;
     }
-  }
-
-  if (imagen !== "") {
-    escenario.innerHTML = `<img src="${imagen}" alt="${escena.titulo}">`;
-  }
-
-  // Las ilustraciones ya incluyen a Annie; no se superpone un cuadro vacío.
-  personaje.hidden = imagen !== "" && escena.personaje === "" && escena.animacion === "";
-  if (escena.animacion !== "") {
-    personaje.innerHTML = `<video src="${escena.animacion}" autoplay muted playsinline aria-label="Animación del personaje"></video>`;
-  } else if (escena.personaje !== "") {
-    personaje.innerHTML = `<img src="${escena.personaje}" alt="Annie">`;
+    // El personaje se integra sobre el escenario, sin marco ni placeholder.
   }
 
   const recursos = document.querySelectorAll(".imagenes img, .imagenes video");
   for (const recurso of recursos) {
     recurso.addEventListener("error", function () {
       recurso.remove();
+      mostrarConsecuencia("No se pudo cargar un recurso visual. Podés continuar con el texto de la escena.");
     });
   }
+}
+
+// Las intermedias tienen una continuación y no vuelven a aplicar recompensas.
+function mostrarIntermedias(ids, continuar) {
+  let indice = 0;
+  function avanzar() {
+    if (indice === ids.length) {
+      continuar();
+      return;
+    }
+    const id = ids[indice];
+    indice = indice + 1;
+    mostrarEscena(id);
+    document.querySelector("#continuar").addEventListener("click", function () {
+      if (escenaActual !== id) return;
+      avanzar();
+    });
+  }
+  avanzar();
 }
 
 function mostrarConsecuencia(mensaje) {
@@ -147,9 +173,11 @@ function iniciarInicio() {
 
   const creditos = document.querySelector("#creditos");
   creditos.addEventListener("click", function () {
+    if (escenaActual !== "inicio") return;
     mostrarEscena("creditos");
     const volver = document.querySelector("#volver");
     volver.addEventListener("click", function () {
+      if (escenaActual !== "creditos") return;
       mostrarEscena("inicio");
       iniciarInicio();
     });
@@ -175,9 +203,13 @@ function determinarFinal() {
     }
   } else if (decisionExperimento === "Rechazado") {
     if (investigacion < 50) {
-      terminarPartida(6);
+      mostrarIntermedias(["despido"], function () {
+        terminarPartida(6);
+      });
     } else if (investigacion < 100) {
-      terminarPartida(7);
+      mostrarIntermedias(["despido"], function () {
+        terminarPartida(7);
+      });
     } else {
       terminarPartida(8);
     }
@@ -226,16 +258,20 @@ function iniciarAnomalias() {
     if (escenaActual !== "anomalias") return;
     investigacion = investigacion + 10;
     estados.anomalias = "Investigadas";
-    mostrarEscena("registroAlterado");
-    iniciarRegistroAlterado();
+    mostrarIntermedias(["investigarAnomalias"], function () {
+      mostrarEscena("registroAlterado");
+      iniciarRegistroAlterado();
+    });
   });
 
   const ignorar = document.querySelector("#ignorar");
   ignorar.addEventListener("click", function () {
     if (escenaActual !== "anomalias") return;
     estados.anomalias = "Ignoradas";
-    mostrarEscena("limpieza");
-    iniciarLimpieza();
+    mostrarIntermedias(["ignorarAsunto"], function () {
+      mostrarEscena("limpieza");
+      iniciarLimpieza();
+    });
   });
 }
 
@@ -255,8 +291,10 @@ function iniciarRegistros() {
     investigacion = investigacion + 10;
     pruebasGuardadas = true;
     estados.pruebas = "Guardadas";
-    mostrarEscena("informeEncontrado");
-    iniciarInformeEncontrado();
+    mostrarIntermedias(["guardarCopias", "copiasConservadas"], function () {
+      mostrarEscena("informeEncontrado");
+      iniciarInformeEncontrado();
+    });
   });
 
   const borrar = document.querySelector("#borrar");
@@ -264,8 +302,10 @@ function iniciarRegistros() {
     if (escenaActual !== "registros") return;
     pruebasGuardadas = false;
     estados.pruebas = "Borradas";
-    mostrarEscena("informeEncontrado");
-    iniciarInformeEncontrado();
+    mostrarIntermedias(["borrarPruebas", "eliminacion"], function () {
+      mostrarEscena("informeEncontrado");
+      iniciarInformeEncontrado();
+    });
   });
 }
 
@@ -301,16 +341,20 @@ function iniciarInforme() {
     if (escenaActual !== "informe") return;
     investigacion = investigacion + 10;
     estados.informe = "Revisado";
-    mostrarEscena("datosEncubiertos");
-    iniciarDatosEncubiertos();
+    mostrarIntermedias(["revisarArchivos"], function () {
+      mostrarEscena("datosEncubiertos");
+      iniciarDatosEncubiertos();
+    });
   });
 
   const cerrar = document.querySelector("#cerrar");
   cerrar.addEventListener("click", function () {
     if (escenaActual !== "informe") return;
     estados.informe = "Cerrado";
-    mostrarEscena("nuevaPostulacion");
-    iniciarNuevaPostulacion();
+    mostrarIntermedias(["cerrarArchivo"], function () {
+      mostrarEscena("nuevaPostulacion");
+      iniciarNuevaPostulacion();
+    });
   });
 }
 
@@ -329,15 +373,19 @@ function iniciarResponsable() {
     if (escenaActual !== "responsable") return;
     investigacion = investigacion + 10;
     estados.responsable = "Investigado";
-    mostrarEscena("inscripcionEncontrada");
-    iniciarInscripcionEncontrada();
+    mostrarIntermedias(["investigarResponsable"], function () {
+      mostrarEscena("inscripcionEncontrada");
+      iniciarInscripcionEncontrada();
+    });
   });
 
   const aceptarExplicacion = document.querySelector("#aceptar-explicacion");
   aceptarExplicacion.addEventListener("click", function () {
     if (escenaActual !== "responsable") return;
     estados.responsable = "Explicacion_Aceptada";
-    terminarPartida(1);
+    mostrarIntermedias(["aceptarExplicacion"], function () {
+      terminarPartida(1);
+    });
   });
 }
 
@@ -364,7 +412,9 @@ function iniciarPistaAurora() {
   terminar.addEventListener("click", function () {
     if (escenaActual !== "pistaAurora") return;
     estados.pista = "Investigacion_Terminada";
-    terminarPartida(2);
+    mostrarIntermedias(["terminarInvestigacion"], function () {
+      terminarPartida(2);
+    });
   });
 }
 
@@ -398,8 +448,10 @@ function iniciarLlegadaNorthBio() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "llegadaNorthBio") return;
-    mostrarEscena("salaRestringida");
-    iniciarSalaRestringida();
+    mostrarIntermedias(["pasilloRestringido"], function () {
+      mostrarEscena("salaRestringida");
+      iniciarSalaRestringida();
+    });
   });
 }
 
@@ -417,8 +469,10 @@ function iniciarSalaRestringida() {
   alejarse.addEventListener("click", function () {
     if (escenaActual !== "salaRestringida") return;
     estados.sala = "Ignorada";
-    mostrarEscena("propuesta");
-    iniciarPropuesta();
+    mostrarIntermedias(["alejarseSala"], function () {
+      mostrarEscena("propuesta");
+      iniciarPropuesta();
+    });
   });
 }
 
@@ -426,8 +480,10 @@ function iniciarTecnologiaEncontrada() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "tecnologiaEncontrada") return;
-    mostrarEscena("dispositivoNeuronal");
-    iniciarDispositivoNeuronal();
+    mostrarIntermedias(["equipoNeuronal"], function () {
+      mostrarEscena("dispositivoNeuronal");
+      iniciarDispositivoNeuronal();
+    });
   });
 }
 
@@ -445,8 +501,10 @@ function iniciarDispositivoNeuronal() {
   salir.addEventListener("click", function () {
     if (escenaActual !== "dispositivoNeuronal") return;
     estados.dispositivo = "Ignorado";
-    mostrarEscena("propuesta");
-    iniciarPropuesta();
+    mostrarIntermedias(["salirDispositivo"], function () {
+      mostrarEscena("propuesta");
+      iniciarPropuesta();
+    });
   });
 }
 
@@ -460,8 +518,10 @@ function iniciarFlujoAurora() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "flujoAurora") return;
-    mostrarEscena("transferencia");
-    iniciarTransferencia();
+    mostrarIntermedias(["transferenciaEncontrada"], function () {
+      mostrarEscena("transferencia");
+      iniciarTransferencia();
+    });
   });
 }
 
@@ -471,16 +531,20 @@ function iniciarTransferencia() {
     if (escenaActual !== "transferencia") return;
     investigacion = investigacion + 10;
     estados.transferencia = "Camino_Seguido";
-    mostrarEscena("propuesta");
-    iniciarPropuesta();
+    mostrarIntermedias(["seguirDatos"], function () {
+      mostrarEscena("propuesta");
+      iniciarPropuesta();
+    });
   });
 
   const cerrarSistema = document.querySelector("#cerrar-sistema");
   cerrarSistema.addEventListener("click", function () {
     if (escenaActual !== "transferencia") return;
     estados.transferencia = "Sistema_Cerrado";
-    mostrarEscena("propuesta");
-    iniciarPropuesta();
+    mostrarIntermedias(["cerrarSistema"], function () {
+      mostrarEscena("propuesta");
+      iniciarPropuesta();
+    });
   });
 }
 
@@ -498,8 +562,10 @@ function iniciarPropuesta() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "propuesta") return;
-    mostrarEscena("experimento");
-    iniciarExperimento();
+    mostrarIntermedias(["detallePropuesta"], function () {
+      mostrarEscena("experimento");
+      iniciarExperimento();
+    });
   });
 }
 
@@ -516,26 +582,29 @@ function iniciarExperimento() {
   aceptarExperimento.addEventListener("click", function () {
     if (escenaActual !== "experimento") return;
     decisionExperimento = "Aceptado";
-    determinarFinal();
+    mostrarIntermedias(["aceptarExperimento"], determinarFinal);
   });
 
   const rechazarExperimento = document.querySelector("#rechazar-experimento");
   rechazarExperimento.addEventListener("click", function () {
     if (escenaActual !== "experimento") return;
     decisionExperimento = "Rechazado";
-    determinarFinal();
+    mostrarIntermedias(["rechazarExperimento"], determinarFinal);
   });
 }
 
 function iniciarFinal() {
+  const idFinal = escenaActual;
   const volver = document.querySelector("#volver");
   volver.addEventListener("click", function () {
+    if (escenaActual !== idFinal) return;
     mostrarEscena("inicio");
     iniciarInicio();
   });
 
   const reiniciar = document.querySelector("#reiniciar");
   reiniciar.addEventListener("click", function () {
+    if (escenaActual !== idFinal) return;
     reiniciarVariables();
     mostrarEscena("introduccion");
     iniciarIntroduccion();
@@ -548,46 +617,6 @@ botonInicio.addEventListener("click", function () {
   iniciarInicio();
 });
 
+iniciarAudio();
 mostrarEscena("inicio");
 iniciarInicio();
-
-// El audio queda fuera de las pantallas para continuar durante la navegación.
-const musicaFondo = document.querySelector("#musica-fondo");
-const botonSonido = document.querySelector("#boton-sonido");
-let sonidoActivado = true;
-musicaFondo.volume = 0.25;
-
-function reproducirMusica() {
-  if (sonidoActivado === true && musicaFondo.paused === true) {
-    musicaFondo.play().catch(function () {
-      // El navegador puede requerir un clic antes de reproducir sonido.
-      botonSonido.textContent = "Activar música";
-    });
-  }
-}
-
-musicaFondo.addEventListener("play", function () {
-  botonSonido.textContent = "Silenciar música";
-  botonSonido.setAttribute("aria-pressed", "true");
-});
-
-musicaFondo.addEventListener("pause", function () {
-  botonSonido.textContent = "Activar música";
-  botonSonido.setAttribute("aria-pressed", "false");
-});
-
-botonSonido.addEventListener("click", function () {
-  if (musicaFondo.paused === true) {
-    sonidoActivado = true;
-    reproducirMusica();
-  } else {
-    sonidoActivado = false;
-    musicaFondo.pause();
-  }
-});
-
-document.addEventListener("click", function () {
-  reproducirMusica();
-});
-
-reproducirMusica();

@@ -1,4 +1,4 @@
-/* Base y colores de la interfaz. Los escenarios quedan reservados para imágenes. */
+/* Identidad visual y composición de AURORA. */
 :root {
   --fondo: #0a1017;
   --panel: #101c27;
@@ -116,18 +116,22 @@ main {
 
 .personaje {
   position: absolute;
-  left: 7%;
-  bottom: 7%;
-  width: 34%;
-  height: 64%;
-  border: 1px dashed #345061;
-  border-radius: 3px;
-  overflow: hidden;
+  bottom: 0;
+  left: 5%;
+  width: 40%;
+  height: 95%;
+  pointer-events: none;
+}
+
+.personaje.empleado {
+  left: auto;
+  right: 8%;
 }
 
 .escenario img,
 .personaje img,
-.personaje video {
+.personaje video,
+.escenario video {
   display: block;
   width: 100%;
   height: 100%;
@@ -259,7 +263,7 @@ button:active {
   transform: translateY(1px);
 }
 
-/* Inicio: título a la izquierda y espacio para la ilustración a la derecha. */
+/* El inicio conserva su composición tipográfica, sin cuadros de recursos vacíos. */
 .vista-inicio .contenido-escena {
   grid-template-columns: 1fr 1.1fr;
   gap: 45px;
@@ -440,5 +444,71 @@ footer {
   .boton-menu {
     padding: 8px 10px;
     font-size: 11px;
+  }
+}
+
+/* Solo la cinemática inicial conserva un espacio pendiente. */
+[hidden] {
+  display: none !important;
+}
+
+.contenido-escena.sin-recursos,
+.vista-inicio .contenido-escena.sin-recursos {
+  grid-template-columns: 1fr;
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.cinematica-pendiente {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: var(--secundario);
+  background: radial-gradient(ellipse at center, #193342, #0d1822);
+}
+
+.controles-narracion {
+  margin: 0 0 18px;
+}
+
+#estado-audio {
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--secundario);
+}
+
+#estado-audio:empty {
+  display: none;
+}
+
+.cabecera nav {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.boton-menu {
+  min-height: 44px;
+}
+
+#texto p {
+  color: #bdccd7;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding-inline: 16px;
+    margin-top: 18px;
+  }
+
+  .cabecera h1 {
+    flex-shrink: 0;
+  }
+
+  .cabecera nav {
+    gap: 4px;
   }
 }

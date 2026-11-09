@@ -1,89 +1,87 @@
-# AURORA: The Truth - Sprint 4
+# AURORA: The Truth · Sprint 5
 
-Versión avanzada jugable, todavía en desarrollo. Están implementados los diez nodos de decisión y los ocho finales. La interfaz se acerca a los mockups y deja vacíos los espacios para escenarios, personajes y animaciones.
+Versión candidata jugable de punta a punta: diez decisiones, ocho finales y 62 recorridos completos. Se integraron los recursos terminados recibidos y las escenas intermedias. La única pieza multimedia pendiente es la cinemática MP4 inicial.
 
-## Abrir el proyecto
+## Abrir y jugar
 
-Como en PokeApp y en el Sprint 3: descomprimí el ZIP, abrí la carpeta en VS Code y ejecutá `index.html` con **Open with Live Server**. Los módulos `import` y `export` necesitan un servidor local; no se abre con doble clic desde `file://`.
+1. Descomprimí el ZIP.
+2. Abrí la carpeta `AURORA-The-Truth` en VS Code.
+3. Hacé clic derecho en `index.html` → **Open with Live Server**.
+4. Pulsá **Comenzar**. En la introducción podés continuar aunque el video todavía no esté disponible.
 
-No hay instalación de paquetes, compilación, cuentas ni guardado persistente. Inicio vuelve al menú y Comenzar reinicia todas las variables. Al recargar la página se vuelve a empezar, de acuerdo con el alcance del Sprint 4.
+No requiere instalar paquetes, compilar ni conectar una base de datos. Los `import`/`export` necesitan HTTP/HTTPS: abrir `index.html` con doble clic (`file://`) no sirve para ejecutar los módulos.
 
-## Organización conservada
+También podés ejecutar `python -m http.server 5500` desde la carpeta del proyecto y abrir `http://localhost:5500/`.
 
-- `index.html`: cabecera, contenedor de pantallas y pie.
-- `css/style.css`: composición, colores, botones, adaptación a móvil y efectos de interfaz.
-- `js/app.js`: variables, estados, renderizado, eventos y condiciones de finales.
-- `js/db/escenas.js`: array de objetos exportado con los textos, opciones y rutas multimedia.
-- `assets/img/`: imágenes a incorporar por el equipo.
-- `assets/videos/AnnieAnimacion1.mp4`: video de prueba recibido, conservado sin modificar.
-- `docs/`: pruebas, avance, recursos pendientes y registro histórico del Sprint 3.
+## Qué incluye esta versión
 
-La carpeta `sprints` se conserva sin modificar en el ZIP y no se utilizó para el desarrollo de esta actualización.
+- Los mismos diez nodos de decisión y los ocho desenlaces del Sprint 4.
+- 55 pantallas en total, incluidas portada, créditos y 22 nuevas intermedias.
+- Las 49 imágenes de escenas recibidas, tres GIF y 23 archivos de audio (75 medios únicos).
+- Los sonidos del CSV `assets/sonido/ESCENAS_Y_AUDIOS.csv`, asignados a sus escenas.
+- Once narraciones MP3 en sus respectivas intermedias. Al cambiar de escena se detiene la narración anterior.
+- Narración escrita en todas las escenas. **Leer narración** usa la grabación cuando existe o la voz en español del dispositivo cuando está disponible; esa voz no es un archivo incluido ni un servicio externo del juego.
+- **Silenciar sonido / Activar sonido** controla ambientes, música, efectos y narración. La preferencia se conserva durante la sesión.
+- Los GIF solamente aparecen sobre escenarios `SOLO_FONDO`: Annie en tecnología neuronal; empleado en la decisión de AURORA y en el despido previo a los finales 6 y 7.
+- Las imágenes de aceptar/rechazar funcionan como transiciones. Cada epílogo tiene su ilustración específica.
+- Navegación por teclado, foco en el título al cambiar de escena y adaptación móvil sin desbordamiento horizontal.
 
-## Cómo está programado
+`Madre.png`, los `.AI` y los `.FLA` se conservan como materiales de producción. No se cargan en el juego. La imagen de la madre queda destinada a la futura cinemática, según la aclaración del equipo.
 
-Se mantiene el enfoque de la versión anterior: `import`/`export`, arrays, objetos, `const`/`let`, ciclos, condicionales, `querySelector`, `innerHTML` y `addEventListener("click", function () { ... })`.
+## Organización y código
 
-`mostrarEscena(id)` busca un objeto en la base de datos y escribe su HTML. Después, una función `iniciar...` conecta los botones de esa pantalla. Por ejemplo, `iniciarRegistros()` conecta Guardar y Borrar. Los paneles narrativos tienen una sola continuación; las diez decisiones tienen dos opciones funcionales.
+| Archivo o carpeta | Función |
+| --- | --- |
+| `index.html` | Cabecera, navegación permanente, contenedor y pie |
+| `css/style.css` | Identidad visual, composición, superposiciones y responsive |
+| `js/app.js` | Variables, estados, renderizado, eventos y condiciones de finales |
+| `js/audio.js` | Reproducción, silenciamiento y lectura de narraciones |
+| `js/db/escenas.js` | Array exportado con textos, opciones y rutas de recursos |
+| `assets/` | Medios originales, fuentes de producción y CSV recibido |
+| `docs/` | Mapa de recursos, pruebas, publicación y seguimiento |
+| `tests/verificar.mjs` | Verificación de recorridos y recursos con Node.js, sin dependencias |
+| `sprints/` | Documentación y referencias del proyecto |
 
-Los puntos y estados permanecen dentro de JavaScript. Las consecuencias se muestran con textos que reconocen lo elegido, por ejemplo conservar o borrar copias, cerrar un informe o salir sin inspeccionar un dispositivo. Las condiciones de los seis finales de NorthBio se concentran en `determinarFinal()`. Los finales de NovaSphere se activan por sus decisiones específicas.
+Se mantiene el enfoque de PokeApp: arrays, objetos, funciones, ciclos, condicionales, `querySelector`, `innerHTML` y `addEventListener`. No hay motor de juego ni framework. Los eventos de las diez decisiones siguen en funciones `iniciar...` de `app.js`.
 
-Para localizar una escena, buscá su `id` en `escenas.js` y su función `iniciar...` en `app.js`. No hay un motor externo ni una librería de juego.
+`mostrarIntermedias(ids, continuar)` muestra una secuencia breve antes de retomar el destino original. Las recompensas se aplican solamente en el clic de decisión, nunca al continuar una intermedia.
 
-## Recorridos y finales
+No hay guardado persistente: recargar vuelve al inicio. **Inicio** vuelve al menú; **Comenzar** y **Jugar otra vez** reinician las variables.
 
-Ahora funcionan también las opciones que antes figuraban como pendientes:
+## Investigación y finales
 
-- Ignorar anomalías lleva a la limpieza y al informe.
-- Borrar pruebas permite seguir, reconociendo que ya no hay copias.
-- Cerrar el informe lleva a una nueva postulación y después a NorthBio.
-- Aceptar la explicación oficial termina en el final 1.
-- Terminar la investigación de AURORA conserva el final 2 del Sprint 3.
-- Seguir la pista conecta NovaSphere con la sala restringida de NorthBio.
-- Alejarse, salir sin tocar el dispositivo o cerrar el sistema lleva a la propuesta, sin inventar un final anticipado.
-- Aceptar o rechazar el experimento lleva a uno de los seis finales de NorthBio según la investigación reunida.
+La variable global `investigacion` no se muestra al jugador. Suma 10 por investigar anomalías, conservar copias, revisar anexos, investigar al responsable, entrar a la sala, inspeccionar el dispositivo y seguir los datos; seguir la pista de AURORA suma 30. El máximo real es 100. Entrar directamente a NorthBio permite llegar a 30.
 
-Los ocho resultados fueron alcanzados en el navegador. El registro detallado está en [docs/pruebas-sprint4.md](docs/pruebas-sprint4.md).
+| Final | Condición |
+| --- | --- |
+| 1 · Explicación oficial | Aceptar la explicación en NovaSphere |
+| 2 · Investigación inconclusa | Terminar la investigación en la pista AURORA |
+| 3 · Al otro lado del silencio | Aceptar el experimento, investigación menor que 50 |
+| 4 · Fragmentos de la verdad | Aceptar, investigación entre 50 y 99 |
+| 5 · AURORA: Awakening | Aceptar, investigación igual a 100 |
+| 6 · La puerta se cierra | Rechazar, investigación menor que 50 |
+| 7 · La verdad incompleta | Rechazar, investigación entre 50 y 99 |
+| 8 · La verdad, a cualquier precio | Rechazar, investigación igual a 100 |
 
-## Agregar recursos sin cambiar la lógica
+Las demás variables y `estados` conservan las consecuencias: copias borradas o guardadas, informe cerrado, sala ignorada, dispositivo sin inspeccionar y transferencia sin rastrear. `empresaElegida` registra la primera postulación, aunque la historia pase después a NorthBio.
 
-Cada objeto de `escenas.js` tiene tres campos inicialmente vacíos:
+## Agregar la cinemática inicial
 
-```js
-imagen: "",
-personaje: "",
-animacion: "",
-```
+1. Guardá el MP4 terminado en `assets/videos/introduccion.mp4` (creá la carpeta si hace falta).
+2. En `js/db/escenas.js`, buscá `id: "introduccion"`.
+3. Completá `cinematica: "./assets/videos/introduccion.mp4"`.
+4. Probalo por HTTP: aparecen los controles del video y desaparece el único espacio pendiente. **Continuar** permanece disponible.
 
-Al disponer de archivos, completá las rutas en las escenas correspondientes. Por ejemplo, para probar el video recibido en Registros alterados:
+Para conservar audio y video compatibles, exportá MP4 con video H.264 y audio AAC. El cargador también conserva soporte para animaciones de video MP4/WebM/Ogg; los GIF se insertan como imágenes animadas.
 
-```js
-imagen: "",
-personaje: "",
-animacion: "./assets/videos/AnnieAnimacion1.mp4",
-```
+## Verificación y entrega
 
-`imagen` usa el cuadro grande de escenario, `personaje` el cuadro de Annie y `animacion` reproduce un MP4 en ese mismo cuadro. Si hay animación, tiene prioridad sobre la imagen de personaje. Se reproduce una vez, silenciada, sin controles y al entrar a la escena. Las rutas vacías no crean etiquetas de medios ni piden archivos inexistentes.
+Ejecutá `node tests/verificar.mjs` para comprobar las rutas de recursos, las 20 opciones, los 62 recorridos, los límites 49/50 y 99/100, los ocho finales y el reinicio.
 
-Los recursos que no pueden cargarse se retiran y el cuadro queda vacío; esto no impide continuar. Si un navegador bloquea la reproducción automática, las decisiones siguen disponibles. Se puede usar PNG/JPG/GIF en los campos de imagen. Para producción, probar el formato final en los navegadores del equipo.
+- [Guía de publicación](docs/publicar-en-internet.md).
+- [Pruebas y correcciones del Sprint 5](docs/pruebas-sprint5.md).
+- [Mapa y criterios de recursos](docs/recursos-sprint5.md).
+- [Relación completa de escenas y archivos](docs/mapa-recursos-sprint5.csv).
+- [Pendientes y evidencias de entrega](docs/entrega-sprint5.md).
 
-
-## División del trabajo
-
-Tomás Barcudi: Producción de recursos visuales.
-
-Agustín Perriello: Producción e ideación de la Animaciónes.
-
-Valentino Carribale: Redacción, organizacion y producción de recursos de Sprint 4
-
-Agustín Bianchi: Programación, corrección y pruebas en WebApp de Sprint 4
-
-
-
-## Documentación del sprint
-
-- [Pruebas y correcciones](docs/pruebas-sprint4.md).
-- [Avance y tareas pendientes](docs/avance-sprint4.md).
-- [Recursos y escenas previstas](docs/recursos-sprint4.md).
-- [Registro del Sprint 3](docs/registro-sprint3.md), conservado como historial; sus opciones pendientes ya están implementadas en esta versión.
-
+Los documentos del Sprint 3 y 4 se conservan como historial y describen aquellas versiones. El estado actual es el de este README y los documentos del Sprint 5.
