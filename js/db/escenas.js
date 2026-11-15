@@ -12,7 +12,7 @@ export const escenas = [
     personaje: "",
     animacion: "",
     sonidos: [],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/inicio.mp3",
     textos: [
       "¿Hasta dónde llegarías para descubrir la verdad?",
       "Una aventura narrativa de ciencia ficción, misterio y decisiones.",
@@ -25,6 +25,7 @@ export const escenas = [
   },
   {
     id: "introduccion",
+    momento: "Unos meses después de la muerte de tu papá",
     titulo: "La historia de Annie",
     ubicacion: "Canadá / Hogar de Annie",
     etiqueta: "INTRODUCCIÓN",
@@ -35,7 +36,7 @@ export const escenas = [
     personaje: "",
     animacion: "",
     sonidos: [],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/introduccion.mp3",
     textos: [
       "Vivís en Canadá y te apasiona la biotecnología. Tuviste que dejar los estudios después de la muerte de tu papá para cuidar a tu mamá enferma.",
       "Necesitás conseguir trabajo para ayudarla. Encontraste dos empresas que podrían darte una oportunidad: NovaSphere y NorthBio.",
@@ -60,7 +61,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/J_ambiente_ciudad.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/postulacion.mp3",
     textos: [
       "NovaSphere trabaja en biotecnología. NorthBio se dedica a las neurociencias y la inteligencia artificial.",
     ],
@@ -83,7 +84,7 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/primerDia.mp3",
     textos: [
       "Tu supervisor te recibe en el laboratorio. «Los registros son confidenciales. Limitate a las tareas asignadas».",
       "Frente a tu escritorio, un procedimiento figura como verificado en la computadora. En el documento físico todavía está marcado como pendiente.",
@@ -107,7 +108,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/anomalias.mp3",
     textos: [
       "En tu primer día, tu supervisor te pide que limpies los registros del laboratorio y te recuerda que son confidenciales.",
       "Notás que algunos procedimientos aparecen como verificados en la computadora, pero los documentos indican que todavía están pendientes.",
@@ -132,7 +133,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/registroAlterado.mp3",
     textos: [
       "Abrís los registros relacionados con la anomalía. Las fechas fueron cambiadas y la firma de autor desapareció.",
       "Una cámara se orienta hacia tu escritorio. «No se corrige un accidente cambiando la fecha», pensás.",
@@ -156,7 +157,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/registros.mp3",
     textos: [
       "Al investigar, encontraste archivos con fechas modificadas y sin el nombre de quien hizo los cambios.",
     ],
@@ -180,7 +181,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P04b_Limpieza/P04b_Limpieza_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/limpieza.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P04b_Limpieza/P04b_Limpieza_audio.mp3",
     textos: [
       "Decidiste no investigar las anomalías y retomás la limpieza habitual de registros.",
       "Entre los documentos que tenés que ordenar aparece el informe de un accidente. No revisaste las discrepancias anteriores, pero este archivo todavía está a tu alcance.",
@@ -204,7 +206,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/E_teclado.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/informeEncontrado.mp3",
     textos: [
       "Durante la limpieza encontrás un informe de accidente con un nombre cubierto. Debajo hay una sección de anexos ocultos.",
       "Recordás la preocupación de tu mamá por que puedas conservar el empleo. La pantalla espera tu siguiente movimiento.",
@@ -228,7 +230,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/E_teclado.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/informe.mp3",
     textos: [
       "Mientras continuás limpiando los registros, encontrás el informe de un accidente ocurrido en las instalaciones.",
       "Hay un nombre tachado y varios archivos ocultos relacionados con el caso.",
@@ -253,7 +255,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/F2_zumbido_grave.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P05_Encubrimiento/P05_Encubrimiento_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/datosEncubiertos.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P05_Encubrimiento/P05_Encubrimiento_audio.mp3",
     textos: [
       "Comparaste el informe público con los registros internos. Las horas del accidente no coinciden y encontraste una orden para modificar los datos.",
       "Descubriste que alguien intentó encubrir lo que pasó.",
@@ -277,7 +280,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/F2_zumbido_grave.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/responsable.mp3",
     textos: [
       "La explicación oficial no aclara por qué se modificaron los registros. Podés seguir investigando para descubrir quién dio la orden.",
     ],
@@ -301,7 +304,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P06_Nombre_AURORA/P06_Nombre_AURORA_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/inscripcionEncontrada.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P06_Nombre_AURORA/P06_Nombre_AURORA_audio.mp3",
     textos: [
       "Seguís la cadena de permisos y encontrás un nombre entre las referencias del accidente: AURORA.",
       "Un aviso aparece en la terminal: «Acceso registrado». Mirás hacia la puerta. «Si sigo, van a saberlo».",
@@ -325,7 +329,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/pistaAurora.mp3",
     textos: [
       "Al investigar al responsable, encontraste una cadena de permisos con un nombre: AURORA. Los archivos también mencionan a NorthBio.",
       "La computadora muestra un aviso de acceso registrado. Seguir la pista puede ser peligroso.",
@@ -350,7 +354,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P07_Renuncia/P07_Renuncia_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/nuevaPostulacion.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P07_Renuncia/P07_Renuncia_audio.mp3",
     textos: [
       "Cerraste el informe sin revisar los anexos. Decidís dejar NovaSphere y volvés a las ofertas de trabajo.",
       "La postulación de NorthBio sigue disponible. Continuás tu búsqueda allí, sin conocer lo que ocultaba el informe de NovaSphere.",
@@ -375,7 +380,7 @@ export const escenas = [
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
       "./assets/sonido/Efectos/C_pasos_pasillo.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/transicionNorthBio.mp3",
     textos: [
       "Guardaste los archivos que mencionan AURORA. Una referencia de intercambio de datos conecta NovaSphere con NorthBio.",
       "Viajás al complejo de neurociencias. En el teléfono recibís otro mensaje: «Todo bien en casa. No tardes». Guardás el celular y seguís adelante.",
@@ -398,7 +403,7 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/llegadaNorthBio.mp3",
     textos: [
       "Un empleado te recibe en NorthBio: «El ala de investigación no forma parte de tu recorrido».",
       "Al girar por un pasillo vacío, notás un resplandor detrás de una puerta entreabierta. La placa dice «Acceso restringido».",
@@ -422,7 +427,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/F2_zumbido_grave.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/salaRestringida.mp3",
     textos: [
       "Hay algo encendido dentro de la sala. La luz alcanza el marco de la puerta y el pasillo permanece en silencio.",
       "Podés acercarte para averiguar qué hay o seguir por el corredor sin entrar.",
@@ -448,7 +453,7 @@ export const escenas = [
       "./assets/sonido/Efectos/B_puerta_futurista.mp3",
       "./assets/sonido/Efectos/C_pasos_pasillo.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/tecnologiaEncontrada.mp3",
     textos: [
       "Entraste a la sala. Diagramas de actividad cerebral iluminan un dispositivo. Reconocés conceptos de tus estudios, llevados mucho más lejos de lo que habías visto.",
       "«¿Están copiando algo?». Te acercás a la consola entre el asombro y el temor.",
@@ -473,7 +478,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/dispositivoNeuronal.mp3",
     textos: [
       "El dispositivo responde con pulsos regulares. Su interfaz permite examinar una transmisión, pero todavía no sabés qué transporta.",
       "Podés inspeccionarlo o salir sin tocar nada.",
@@ -498,7 +503,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/flujoAurora.mp3",
     textos: [
       "Al inspeccionar el dispositivo encontrás una transmisión activa. El destino está escrito en la terminal: AURORA.",
       "Los pitidos se aceleran mientras el flujo de datos continúa.",
@@ -522,7 +527,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/transferencia.mp3",
     textos: [
       "La transmisión permanece activa. Podés rastrear su camino para descubrir cómo se conecta con el proyecto.",
       "Si cerrás el sistema, dejarás esa pista sin comprobar.",
@@ -546,7 +551,8 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P10_Convocatoria/P10_Convocatoria_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/propuesta.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P10_Convocatoria/P10_Convocatoria_audio.mp3",
     textos: [
       "Un representante de NorthBio te recibe frente a una puerta blanca. «Revisamos tu perfil. Tenemos una oportunidad extraordinaria».",
       "La empresa te propone participar en una prueba de AURORA. Observás el consentimiento y recordás a tu mamá.",
@@ -570,7 +576,7 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/experimento.mp3",
     textos: [
       "El consentimiento espera tu respuesta. NorthBio presenta su investigación como una oportunidad para preservar la conciencia humana.",
       "Pensás en tu familia y en todo lo que viste. Esta vez, la decisión te involucra directamente.",
@@ -590,11 +596,11 @@ export const escenas = [
     tipo: "final",
     imagen: "./assets/img/NovaSphere/NS16_FINAL_explicacion_oficial_SOLO_FONDO.png",
     personaje: "",
-    animacion: "",
+    animacion: "./assets/animaciones/Animación-Despido-N16-17-NorthBio-AURORA-The-Truth.gif",
     sonidos: [
       "./assets/sonido/Musica/G_Sad_Trio_Kevin_MacLeod.mp3",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final1.mp3",
     textos: [
       "Aceptaste la explicación oficial del accidente y dejaste de buscar al responsable. La investigación termina sin que descubras la verdad.",
       "La empresa descubre tu indagación. NovaSphere te despide y no conseguís la estabilidad que necesitabas. Tu mamá muere.",
@@ -615,11 +621,11 @@ export const escenas = [
     tipo: "final",
     imagen: "./assets/img/NovaSphere/NS17_FINAL_investigacion_inconclusa_SOLO_FONDO.png",
     personaje: "",
-    animacion: "",
+    animacion: "./assets/animaciones/Animación-Despido-N16-17-NorthBio-AURORA-The-Truth.gif",
     sonidos: [
       "./assets/sonido/Musica/G_Sad_Trio_Kevin_MacLeod.mp3",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final2.mp3",
     textos: [
       "Encontraste la inscripción AURORA, pero decidiste que continuar investigando era demasiado peligroso. Abandonaste la pista sin descubrir toda la verdad.",
       "La empresa descubre tu investigación. NovaSphere te despide y, sin conseguir la estabilidad que necesitabas, tu mamá muere.",
@@ -645,7 +651,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final3.mp3",
     textos: [
       "Aceptaste el experimento sin reunir las pruebas necesarias para conocer el verdadero propósito de AURORA.",
       "La transferencia comienza. Tu destino queda ligado al proyecto sin que comprendas completamente qué está ocurriendo.",
@@ -671,7 +677,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final4.mp3",
     textos: [
       "Aceptaste el experimento sabiendo que los accidentes y los registros alterados estaban relacionados con el proyecto.",
       "Reuniste parte de la conexión entre las empresas, pero todavía no comprendés por completo la naturaleza de la transferencia.",
@@ -699,7 +705,7 @@ export const escenas = [
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final5.mp3",
     textos: [
       "Reconstruiste la conexión completa: NovaSphere, NorthBio y AURORA. Los registros alterados, los accidentes y la tecnología neuronal forman parte de la misma historia.",
       "Aceptás el experimento con la verdad reconstruida. La transferencia comienza y abandonás tu cuerpo humano.",
@@ -725,7 +731,7 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Musica/G_Sad_Trio_Kevin_MacLeod.mp3",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final6.mp3",
     textos: [
       "Rechazaste la prueba por desconfianza, sin reunir información suficiente para comprender el secreto de NorthBio.",
       "La empresa te despide. Volvés a buscar trabajo, pero el tiempo se agota y tu mamá muere.",
@@ -751,11 +757,11 @@ export const escenas = [
       "./assets/sonido/Musica/G_Sad_Trio_Kevin_MacLeod.mp3",
       "./assets/sonido/Efectos/I_papeles.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final7.mp3",
     textos: [
       "Sabés que los accidentes se relacionan con AURORA, aunque todavía te faltan pruebas para comprender todo el proyecto.",
       "Rechazaste el experimento y abandonaste la investigación. La información que reuniste es insuficiente.",
-      "Tiempo después, NorthBio te despide y tu mamá muere. Conservás fragmentos de una historia que las empresas nunca van a contar.",
+      "Después del despido, la búsqueda de trabajo no alcanza para recuperar la estabilidad que necesitabas. Tu mamá muere. Conservás fragmentos de una historia que las empresas nunca van a contar.",
     ],
     pregunta: "",
     opciones: [
@@ -776,7 +782,7 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Musica/G_Sad_Trio_Kevin_MacLeod.mp3",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/final8.mp3",
     textos: [
       "Reconstruiste el vínculo completo entre NovaSphere, NorthBio y AURORA. Sabés lo que significa transferir tu conciencia y te negás a entregarla.",
       "Huís con las pruebas, pero las empresas se encubren entre sí. Tu intento de exponerlas no logra cambiar el resultado.",
@@ -799,13 +805,14 @@ export const escenas = [
     personaje: "",
     animacion: "",
     sonidos: [],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/creditos.mp3",
     textos: [
-      "Valentino Carribale: historia y diseño narrativo.",
-      "Agustín Bianchi: programación y lógica.",
-      "Agustín Perriello: diseño visual y producción multimedia.",
-      "Tomás Barcudi: apoyo, revisión y seguimiento.",
-      "Música: Sad Trio, Kevin MacLeod (incompetech.com). Licencia Creative Commons BY 4.0. Créditos y enlace en docs/recursos-sprint5.md.",
+      "Narrador: Brian C. · Voz interior de Annie: Natalia - Versatile. Voces generadas con ElevenLabs (elevenlabs.io).",
+      "Valentino Carribale: Producción multimedia, documentación y coordinación.",
+      "Agustín Bianchi: Programación y lógica.",
+      "Agustín Perriello: Diseño visual y producción multimedia.",
+      "Tomás Barcudi: Diseño visual y producción multimedia.",
+      "Música: Sad Trio, Kevin MacLeod (incompetech.com). Licencia Creative Commons BY 4.0.",
       "Colegio Del Carmen · 4.º Bachiller en Informática · FSD y Producción Multimedial · 2026.",
     ],
     pregunta: "",
@@ -830,7 +837,7 @@ export const escenas = [
       "./assets/sonido/Efectos/E_teclado.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/investigarAnomalias.mp3",
     textos: [
       "Abrís el historial de los procedimientos. Las marcas de verificación no coinciden con los documentos: decidís comparar los registros.",
     ],
@@ -853,7 +860,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/ignorarAsunto.mp3",
     textos: [
       "Dejás la anomalía sin revisar y retomás la limpieza de registros. La discrepancia permanece sin explicación.",
     ],
@@ -877,7 +884,7 @@ export const escenas = [
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/guardarCopias.mp3",
     textos: [
       "Guardás una copia de los registros alterados. Ahora conservás una referencia para comparar lo que la empresa modifique.",
     ],
@@ -901,7 +908,8 @@ export const escenas = [
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P03_Copias/P03_Copias_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/copiasConservadas.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P03_Copias/P03_Copias_audio.mp3",
     textos: [
       "Revisás las copias guardadas: fechas modificadas, firmas ausentes y entradas que ya no coinciden con el informe original. Conservás la evidencia y continuás con los archivos pendientes.",
     ],
@@ -924,7 +932,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/borrarPruebas.mp3",
     textos: [
       "Borrás los registros alterados sin guardar una copia. Aunque sigas investigando, ya no podrás recuperar esa evidencia.",
     ],
@@ -947,7 +955,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P04a_Eliminacion/P04a_Eliminacion_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/eliminacion.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P04a_Eliminacion/P04a_Eliminacion_audio.mp3",
     textos: [
       "Confirmás la eliminación. La ventana se cierra y los archivos desaparecen del listado. Volvés a la limpieza de registros sin esas pruebas.",
     ],
@@ -971,7 +980,7 @@ export const escenas = [
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
       "./assets/sonido/Efectos/E_teclado.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/revisarArchivos.mp3",
     textos: [
       "Accedés a los anexos ocultos del accidente. Comparás sus datos con el informe público para comprobar qué cambió.",
     ],
@@ -994,7 +1003,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/cerrarArchivo.mp3",
     textos: [
       "Cerrás el informe sin abrir los anexos. Dejás esa pista sin revisar y decidís buscar una nueva oportunidad laboral.",
     ],
@@ -1018,7 +1027,7 @@ export const escenas = [
       "./assets/sonido/Efectos/E_teclado.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/investigarResponsable.mp3",
     textos: [
       "Seguís los permisos de quienes modificaron los registros. Una cadena de accesos conduce a una referencia que no figura en el informe público.",
     ],
@@ -1041,7 +1050,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/aceptarExplicacion.mp3",
     textos: [
       "Aceptás la explicación de la empresa y cerrás la investigación del accidente. Los datos que no coinciden quedan sin una respuesta.",
     ],
@@ -1064,7 +1073,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/H_ambiente_oficina.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/terminarInvestigacion.mp3",
     textos: [
       "Archivás la investigación de AURORA. Preferís no seguir una pista que podría ponerte en riesgo.",
     ],
@@ -1087,7 +1096,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/F2_zumbido_grave.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P-NB_Sala_restringida/P-NB_Sala_restringida_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/pasilloRestringido.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P-NB_Sala_restringida/P-NB_Sala_restringida_audio.mp3",
     textos: [
       "El recorrido te lleva junto a un área restringida. Una luz atraviesa la puerta y rompe la oscuridad del pasillo. Te detenés antes de decidir si acercarte.",
     ],
@@ -1110,7 +1120,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P08_Equipo_neuronal/P08_Equipo_neuronal_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/equipoNeuronal.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P08_Equipo_neuronal/P08_Equipo_neuronal_audio.mp3",
     textos: [
       "Los indicadores dibujan patrones de actividad cerebral. Reconocés conceptos de tus estudios, pero el equipo parece capaz de ir mucho más lejos.",
     ],
@@ -1133,7 +1144,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/C_pasos_pasillo.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/alejarseSala.mp3",
     textos: [
       "Te alejás de la sala sin entrar. No descubrís qué había dentro; poco después recibís una convocatoria de NorthBio.",
     ],
@@ -1157,7 +1168,7 @@ export const escenas = [
       "./assets/sonido/Efectos/C_pasos_pasillo.wav",
       "./assets/sonido/Efectos/B_puerta_futurista.mp3",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/salirDispositivo.mp3",
     textos: [
       "Salís sin inspeccionar el dispositivo. La transmisión sigue activa, pero su destino queda sin comprobar.",
     ],
@@ -1180,7 +1191,8 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P09_Transferencia/P09_Transferencia_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/transferenciaEncontrada.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P09_Transferencia/P09_Transferencia_audio.mp3",
     textos: [
       "La consola muestra una transferencia activa hacia AURORA. Observás el enlace entre los sistemas y te preparás para decidir si rastrearlo.",
     ],
@@ -1204,7 +1216,7 @@ export const escenas = [
       "./assets/sonido/Efectos/E_teclado.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/seguirDatos.mp3",
     textos: [
       "Seguís el camino de los datos. El rastro permite relacionar el dispositivo neuronal con AURORA, antes de que NorthBio te convoque.",
     ],
@@ -1227,7 +1239,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/cerrarSistema.mp3",
     textos: [
       "Cerrás la sesión sin rastrear la transferencia. Perdés la oportunidad de comprobar esa parte de la conexión.",
     ],
@@ -1249,7 +1261,8 @@ export const escenas = [
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "./assets/img/intermedias (con audio)/P10b_Propuesta/P10b_Propuesta_audio.mp3",
+    narracion: "./assets/sonido/Narracion_Brian_C/detallePropuesta.mp3",
+    narracionOriginal: "./assets/img/intermedias (con audio)/P10b_Propuesta/P10b_Propuesta_audio.mp3",
     textos: [
       "En la reunión, NorthBio presenta AURORA como su última investigación. Escuchás la propuesta antes de responder al consentimiento.",
     ],
@@ -1272,7 +1285,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D1_clic_seleccion.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/aceptarExperimento.mp3",
     textos: [
       "Aceptás participar y confirmás el consentimiento. El personal prepara la transferencia; lo que comprendés de ella depende de las pistas que investigaste.",
     ],
@@ -1295,7 +1308,7 @@ export const escenas = [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/C_pasos_pasillo.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/rechazarExperimento.mp3",
     textos: [
       "Rechazás la prueba. No autorizás la transferencia de tu conciencia y te preparás para abandonar la sala.",
     ],
@@ -1313,11 +1326,11 @@ export const escenas = [
     tipo: "intermedia",
     imagen: "./assets/img/NorthBio/13_propuesta_AURORA_SOLO_FONDO.png",
     personaje: "",
-    animacion: "./assets/animaciones/Animación-Despido-N16-17-NorthBio-AURORA-The-Truth.gif",
+    animacion: "",
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
-    narracion: "",
+    narracion: "./assets/sonido/Narracion_Brian_C/despido.mp3",
     textos: [
       "NorthBio te comunica el despido. La reunión termina y tenés que volver a casa con las preguntas y las pruebas que pudiste reunir.",
     ],
@@ -1327,4 +1340,204 @@ export const escenas = [
     ],
     posicion: "empleado",
   },
+  {
+    "id": "tiempoNovaSphere",
+    "titulo": "Dos semanas después…",
+    "ubicacion": "NovaSphere / Laboratorio",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "cyan",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NorthBio/02_novasphere.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/H_ambiente_oficina.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Tu primer día en NovaSphere"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoNorthBio",
+    "titulo": "Dos semanas después…",
+    "ubicacion": "NorthBio / Ala de investigación",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "azul",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NorthBio/03_northbio.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "El comienzo en NorthBio"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoRevision",
+    "titulo": "Al día siguiente…",
+    "ubicacion": "NovaSphere / Archivo de incidentes",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "cyan",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NovaSphere/NS07_informe_accidente.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/H_ambiente_oficina.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Un nuevo turno en NovaSphere"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoNuevaPostulacion",
+    "titulo": "Una semana después…",
+    "ubicacion": "NorthBio / Ala de investigación",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "azul",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NorthBio/03_northbio.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Una nueva oportunidad laboral"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoConexion",
+    "titulo": "Varios días después…",
+    "ubicacion": "NorthBio / Ala de investigación",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "azul",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NorthBio/03_northbio.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "La pista conduce a NorthBio"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoConvocatoria",
+    "titulo": "Tres días después…",
+    "ubicacion": "NorthBio / La propuesta",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "violeta",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/intermedias (con audio)/P10_Convocatoria/P10_Convocatoria.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Una convocatoria de NorthBio"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoExperimento",
+    "titulo": "A la mañana siguiente…",
+    "ubicacion": "NorthBio / Experimento AURORA",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "violeta",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/NorthBio/13_propuesta_AURORA_SOLO_FONDO.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Después de una noche para pensarlo"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  },
+  {
+    "id": "tiempoEpilogo",
+    "titulo": "En los meses que siguieron…",
+    "ubicacion": "Canadá / Nueva postulación",
+    "etiqueta": "EL PASO DEL TIEMPO",
+    "tema": "azul",
+    "tipo": "tiempo",
+    "imagen": "./assets/img/intermedias (con audio)/P07_Renuncia/P07_Renuncia.png",
+    "personaje": "",
+    "animacion": "",
+    "sonidos": [
+      "./assets/sonido/Ambientes/H_ambiente_oficina.wav"
+    ],
+    "narracion": "",
+    "textos": [
+      "Las consecuencias continúan"
+    ],
+    "pregunta": "",
+    "opciones": [
+      {
+        "id": "continuar",
+        "texto": "Continuar la historia"
+      }
+    ]
+  }
 ];

@@ -512,3 +512,65 @@ footer {
     gap: 4px;
   }
 }
+
+/* La voz interior se integra al panel narrativo y conserva el flujo de lectura. */
+.voz-interior {
+  margin: 6px 0 24px;
+  padding: 20px;
+  border-left: 2px solid var(--acento);
+  background-color: #0c1822;
+  overflow-wrap: anywhere;
+}
+
+.voz-interior .etiqueta {
+  margin-bottom: 8px;
+  font-size: 10px;
+}
+
+.voz-interior h3 {
+  margin-bottom: 8px;
+  font-size: 17px;
+  line-height: 1.4;
+}
+
+.emocion-annie {
+  margin-bottom: 14px;
+  color: var(--acento);
+  font-size: 12px;
+}
+
+#pensamiento-annie {
+  margin-bottom: 18px;
+  color: var(--texto);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.estado-voz {
+  margin-top: 8px;
+  color: var(--secundario);
+  font-size: 12px;
+}
+
+.estado-voz:empty { display: none; }
+button:disabled { cursor: default; opacity: 0.6; }
+.vista-inicio .controles-narracion { order: 4; }
+.vista-inicio .opciones { order: 5; }
+
+.vista-tiempo .contenido-escena {
+  display: block;
+  max-width: 820px;
+  margin-inline: auto;
+}
+
+.vista-tiempo .imagenes { display: none; }
+.vista-tiempo .decision { padding: clamp(28px, 6vw, 64px); }
+.vista-tiempo h2 { font-size: clamp(30px, 5vw, 48px); }
+.vista-tiempo .etiqueta { letter-spacing: 3px; }
+
+@media (max-width: 480px) {
+  .voz-interior { padding: 16px; }
+  #pensamiento-annie { font-size: 14px; }
+}
+
+.momento-historia { margin-bottom: 14px; color: var(--secundario); font-size: 12px; }

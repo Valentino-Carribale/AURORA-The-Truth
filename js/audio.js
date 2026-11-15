@@ -1,14 +1,12 @@
-// Audio separado del renderizado. No requiere paquetes ni servicios externos.
+// Ambientes automáticos y dos voces con reproducción manual.
 const botonSonido = document.querySelector("#boton-sonido");
 let sonidoActivado = true;
 let ambiente = null;
 let rutaAmbiente = "";
 let efectos = [];
-let narracion = null;
-let escenaAudio = null;
-let lectura = null;
-let vozActiva = false;
-let numeroNarracion = 0;
+let voces = [];
+let vozActual = null;
+let numeroEscena = 0;
 
 function actualizarBotonSonido() {
   botonSonido.textContent = sonidoActivado ? "Silenciar sonido" : "Activar sonido";
@@ -20,86 +18,118 @@ function actualizarBotonSonido() {
 function reproducir(audio) {
   if (!audio || !sonidoActivado) return;
   audio.play().catch(function () {
-    // La historia sigue disponible si el navegador requiere otro gesto de reproducción.
+    // Los efectos no impiden continuar si el navegador requiere un primer gesto.
   });
 }
 
-function detenerNarracion() {
-  numeroNarracion = numeroNarracion + 1;
-  if (narracion) narracion.pause();
-  narracion = null;
-  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
-  lectura = null;
-  vozActiva = false;
+function actualizarVoz(voz) {
+  const reproduciendo = vozActual === voz && voz.audio && !voz.audio.paused;
+  let accion = "Reproducir";
+  if (reproduciendo) accion = "Pausar";
+  else if (voz.audio?.ended) accion = "Repetir";
+  else if (voz.audio && voz.audio.currentTime > 0) accion = "Reanudar";
+  voz.boton.textContent = accion + " " + voz.nombre;
+  voz.boton.setAttribute("aria-pressed", String(Boolean(reproduciendo)));
+}
+
+function pausarVoz() {
+  if (vozActual) {
+    const anterior = vozActual;
+    vozActual = null;
+    anterior.intento = anterior.intento + 1;
+    if (anterior.audio) anterior.audio.pause();
+    actualizarVoz(anterior);
+  }
   if (ambiente) ambiente.volume = 0.22;
 }
 
 export function pausarAudio() {
   if (ambiente) ambiente.pause();
   for (const efecto of efectos) efecto.pause();
-  detenerNarracion();
-  const boton = document.querySelector("#boton-narracion");
-  if (boton) boton.textContent = "Leer narración";
+  pausarVoz();
 }
 
-function terminarLectura() {
-  vozActiva = false;
-  if (ambiente) ambiente.volume = 0.22;
-  const boton = document.querySelector("#boton-narracion");
-  if (boton) boton.textContent = "Repetir narración";
-}
-
-function iniciarNarracion(escena) {
-  detenerNarracion();
-  const numero = numeroNarracion;
-  function alTerminar() {
-    if (numero === numeroNarracion) terminarLectura();
+function crearVoz(ruta, respaldo, boton, estado, nombre) {
+  const numero = numeroEscena;
+  const voz = { ruta, respaldo, boton, estado, nombre, audio: null, usandoRespaldo: false, intento: 0 };
+  voces.push(voz);
+  boton.disabled = !ruta;
+  boton.textContent = "Reproducir " + nombre;
+  boton.setAttribute("aria-pressed", "false");
+  if (!ruta) {
+    estado.textContent = "La grabación de Annie está pendiente de generación. Podés leer su pensamiento.";
+    return;
   }
-  const boton = document.querySelector("#boton-narracion");
-  const estado = document.querySelector("#estado-audio");
-  estado.textContent = "";
-  if (escena.narracion) {
-    narracion = new Audio(escena.narracion);
-    narracion.volume = 1;
-    narracion.addEventListener("ended", alTerminar);
-    narracion.addEventListener("error", function () {
-      if (numero !== numeroNarracion) return;
-      estado.textContent = "No se pudo reproducir la narración. El texto sigue disponible.";
-      alTerminar();
-    });
-    narracion.addEventListener("play", function () {
-      if (numero !== numeroNarracion) return;
-      if (ambiente) ambiente.volume = 0.08;
-      boton.textContent = "Pausar narración";
-    });
-    reproducir(narracion);
-  } else if ("speechSynthesis" in window && "SpeechSynthesisUtterance" in window) {
-    const voces = window.speechSynthesis.getVoices();
-    const voz = voces.find(function (voz) { return voz.lang === "es-AR"; }) ||
-      voces.find(function (voz) { return voz.lang.startsWith("es"); });
-    if (!voz) {
-      estado.textContent = "La lectura por voz no está disponible en español en este dispositivo. Podés seguir leyendo el texto.";
+  boton.addEventListener("click", function () {
+    if (numero !== numeroEscena) return;
+    if (vozActual === voz && voz.audio && !voz.audio.paused) {
+      pausarVoz();
       return;
     }
-    lectura = new SpeechSynthesisUtterance(document.querySelector("#texto").textContent + " " + document.querySelector("#consecuencia").textContent);
-    lectura.lang = voz.lang;
-    lectura.voice = voz;
-    lectura.rate = 0.95;
-    lectura.addEventListener("end", alTerminar);
-    lectura.addEventListener("error", alTerminar);
-    vozActiva = true;
-    if (ambiente) ambiente.volume = 0.08;
-    boton.textContent = "Detener narración";
-    window.speechSynthesis.speak(lectura);
-  } else {
-    estado.textContent = "La lectura por voz no está disponible en este dispositivo. Podés seguir leyendo el texto.";
-  }
+    pausarVoz();
+    sonidoActivado = true;
+    actualizarBotonSonido();
+    const video = document.querySelector(".escenario video");
+    if (video) video.pause();
+    reproducir(ambiente);
+    iniciarVoz(voz, numero);
+  });
 }
 
-export function prepararAudio(escena) {
-  escenaAudio = escena;
+function iniciarVoz(voz, numero) {
+  voz.estado.textContent = "";
+  if (!voz.audio) {
+    const audio = new Audio(voz.usandoRespaldo ? voz.respaldo : voz.ruta);
+    voz.audio = audio;
+    audio.preload = "none";
+    audio.addEventListener("play", function () {
+      if (numero !== numeroEscena || vozActual !== voz || !sonidoActivado) {
+        audio.pause();
+        return;
+      }
+      if (ambiente) ambiente.volume = 0.08;
+      actualizarVoz(voz);
+    });
+    audio.addEventListener("ended", function () {
+      if (numero !== numeroEscena) return;
+      if (vozActual === voz) {
+        vozActual = null;
+        if (ambiente) ambiente.volume = 0.22;
+      }
+      actualizarVoz(voz);
+    });
+    audio.addEventListener("error", function () {
+      if (numero !== numeroEscena || voz.audio !== audio) return;
+      const continuar = vozActual === voz && sonidoActivado;
+      if (vozActual === voz) pausarVoz();
+      voz.audio = null;
+      if (!voz.usandoRespaldo && voz.respaldo) {
+        voz.usandoRespaldo = true;
+        if (continuar) iniciarVoz(voz, numero);
+      } else {
+        voz.estado.textContent = "No se pudo reproducir esta voz. Podés reintentar o seguir leyendo.";
+      }
+      actualizarVoz(voz);
+    });
+  }
+  if (voz.audio.ended) voz.audio.currentTime = 0;
+  vozActual = voz;
+  const audio = voz.audio;
+  voz.intento = voz.intento + 1;
+  const intento = voz.intento;
+  audio.play().catch(function () {
+    if (numero !== numeroEscena || voz.audio !== audio || voz.intento !== intento) return;
+    if (vozActual === voz) pausarVoz();
+    voz.estado.textContent = "El navegador no pudo iniciar el audio. Volvé a pulsar Reproducir.";
+  });
+}
+
+export function prepararAudio(escena, pensamiento = null) {
+  pausarVoz();
+  numeroEscena = numeroEscena + 1;
+  for (const voz of voces) if (voz.audio) voz.audio.pause();
+  voces = [];
   actualizarBotonSonido();
-  detenerNarracion();
   for (const efecto of efectos) efecto.pause();
   efectos = [];
 
@@ -108,7 +138,6 @@ export function prepararAudio(escena) {
     if (ruta.includes("/Ambientes/") || ruta.includes("/Musica/")) nuevaRuta = ruta;
     else efectos.push(new Audio(ruta));
   }
-  // El mismo ambiente continúa entre escenas; los efectos anteriores se detienen.
   if (nuevaRuta !== rutaAmbiente) {
     if (ambiente) ambiente.pause();
     rutaAmbiente = nuevaRuta;
@@ -123,21 +152,16 @@ export function prepararAudio(escena) {
     efecto.volume = 0.35;
     reproducir(efecto);
   }
-  if (escena.narracion && sonidoActivado) iniciarNarracion(escena);
 
   const boton = document.querySelector("#boton-narracion");
-  boton.addEventListener("click", function () {
-    if (escenaAudio !== escena) return;
-    if (vozActiva || (narracion && !narracion.paused)) {
-      detenerNarracion();
-      boton.textContent = "Repetir narración";
-    } else {
-      sonidoActivado = true;
-      actualizarBotonSonido();
-      reproducir(ambiente);
-      iniciarNarracion(escena);
-    }
-  });
+  document.querySelector(".controles-narracion").hidden = !escena.narracion;
+  if (escena.narracion) {
+    crearVoz(escena.narracion, escena.narracionOriginal, boton, document.querySelector("#estado-audio"), "narrador");
+  }
+  if (pensamiento) {
+    crearVoz(pensamiento.audio, "", document.querySelector("#boton-pensamiento"), document.querySelector("#estado-pensamiento"), "voz de Annie");
+  }
+  // Entrar a una escena o activar el sonido nunca inicia ninguna de las voces.
 }
 
 export function iniciarAudio() {
@@ -145,13 +169,7 @@ export function iniciarAudio() {
   botonSonido.addEventListener("click", function () {
     sonidoActivado = !sonidoActivado;
     actualizarBotonSonido();
-    if (sonidoActivado) {
-      reproducir(ambiente);
-      if (escenaAudio && escenaAudio.narracion) iniciarNarracion(escenaAudio);
-    } else {
-      pausarAudio();
-      const boton = document.querySelector("#boton-narracion");
-      if (boton) boton.textContent = "Leer narración";
-    }
+    if (sonidoActivado) reproducir(ambiente);
+    else pausarAudio();
   });
 }

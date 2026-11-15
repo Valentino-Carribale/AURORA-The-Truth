@@ -1,4 +1,5 @@
 import { escenas } from "./db/escenas.js";
+import { pensamientos } from "./db/pensamientos.js";
 import { iniciarAudio, prepararAudio, pausarAudio } from "./audio.js";
 
 const pantalla = document.querySelector("#pantalla");
@@ -55,14 +56,23 @@ function mostrarEscena(id) {
               <div class="personaje" aria-label="Personaje" hidden></div>
             </div>
             <div class="decision">
+              ${escena.momento ? `<p class="momento-historia">${escena.momento}</p>` : ""}
               <p class="etiqueta">${escena.etiqueta}</p>
               <h2 id="titulo-escena" tabindex="-1">${escena.titulo}</h2>
               <div id="consecuencia" role="status"></div>
               <div id="texto"></div>
               <div class="controles-narracion">
-                <button type="button" class="boton-menu" id="boton-narracion">Leer narración</button>
+                <button type="button" class="boton-menu" id="boton-narracion" aria-pressed="false">Reproducir narrador</button>
                 <p id="estado-audio" role="status"></p>
               </div>
+              <section id="voz-interior" class="voz-interior" aria-labelledby="titulo-pensamiento" hidden>
+                <p class="etiqueta">LA VOZ DE ANNIE</p>
+                <h3 id="titulo-pensamiento">Lo que no digo en voz alta</h3>
+                <p id="emocion-annie" class="emocion-annie"></p>
+                <p id="pensamiento-annie"></p>
+                <button type="button" class="boton-menu" id="boton-pensamiento" aria-pressed="false">Escuchar a Annie</button>
+                <p id="estado-pensamiento" class="estado-voz" role="status"></p>
+              </section>
               <div id="opciones" class="opciones"></div>
             </div>
           </div>
@@ -87,14 +97,50 @@ function mostrarEscena(id) {
         opciones.innerHTML += `<button type="button" class="${claseBoton}" id="${opcion.id}">${opcion.texto}</button>`;
       }
 
+      const pensamiento = elegirPensamiento(escena.id);
+      const panel = document.querySelector("#voz-interior");
+      if (pensamiento) {
+        panel.hidden = false;
+        document.querySelector("#emocion-annie").textContent = pensamiento.emocion;
+        document.querySelector("#pensamiento-annie").textContent = pensamiento.texto;
+      }
       cargarRecursos(escena);
-      prepararAudio(escena);
+      prepararAudio(escena, pensamiento);
       document.querySelector("#titulo-escena").focus({ preventScroll: true });
       window.scrollTo(0, 0);
       return;
     }
   }
   pantalla.innerHTML = "<p>No se pudo abrir la escena. Usá Inicio para volver a empezar.</p>";
+}
+
+// La voz interior solo usa información que Annie ya obtuvo en este recorrido.
+function elegirPensamiento(id) {
+  let cuando = "siempre";
+  if (id === "informe") {
+    if (pruebasGuardadas) cuando = "conCopias";
+    else if (estados.pruebas === "Borradas") cuando = "pruebasBorradas";
+  }
+  if (id === "llegadaNorthBio" || id === "flujoAurora") {
+    if (estados.pista === "Archivos_Guardados") cuando = "conConexion";
+    else if (id === "llegadaNorthBio" && empresaElegida === "NovaSphere") cuando = "desdeNovaSphere";
+  }
+  if (id === "propuesta") {
+    if (estados.sala === "Ignorada") cuando = "salaIgnorada";
+    else if (estados.dispositivo === "Ignorado") cuando = "dispositivoIgnorado";
+    else if (estados.transferencia === "Sistema_Cerrado") cuando = "transferenciaCerrada";
+  }
+  if (["experimento", "aceptarExperimento", "rechazarExperimento"].includes(id)) {
+    if (investigacion === 100) cuando = "completa";
+    else if (investigacion >= 50) cuando = "parcial";
+  }
+  return pensamientos.find(function (pensamiento) {
+    return pensamiento.escena === id && pensamiento.cuando === cuando;
+  }) || null;
+}
+
+function mostrarPasoTiempo(id, continuar) {
+  mostrarIntermedias([id], continuar);
 }
 
 // GIF e imágenes usan <img>; MP4/WebM/Ogg conservan el reproductor de video.
@@ -187,8 +233,15 @@ function iniciarInicio() {
 function terminarPartida(numero) {
   estadoJuego = "Finalizado";
   finalAlcanzado = numero;
-  mostrarEscena("final" + numero);
-  iniciarFinal();
+  if ([1, 2, 6, 7, 8].includes(numero)) {
+    mostrarPasoTiempo("tiempoEpilogo", function () {
+      mostrarEscena("final" + numero);
+      iniciarFinal();
+    });
+  } else {
+    mostrarEscena("final" + numero);
+    iniciarFinal();
+  }
 }
 
 // Solo los finales de NorthBio dependen del rango de investigación.
@@ -230,16 +283,20 @@ function iniciarPostulacion() {
   novasphere.addEventListener("click", function () {
     if (escenaActual !== "postulacion") return;
     empresaElegida = "NovaSphere";
-    mostrarEscena("primerDia");
-    iniciarPrimerDia();
+    mostrarPasoTiempo("tiempoNovaSphere", function () {
+      mostrarEscena("primerDia");
+      iniciarPrimerDia();
+    });
   });
 
   const northbio = document.querySelector("#northbio");
   northbio.addEventListener("click", function () {
     if (escenaActual !== "postulacion") return;
     empresaElegida = "NorthBio";
-    mostrarEscena("llegadaNorthBio");
-    iniciarLlegadaNorthBio();
+    mostrarPasoTiempo("tiempoNorthBio", function () {
+      mostrarEscena("llegadaNorthBio");
+      iniciarLlegadaNorthBio();
+    });
   });
 }
 
@@ -292,8 +349,10 @@ function iniciarRegistros() {
     pruebasGuardadas = true;
     estados.pruebas = "Guardadas";
     mostrarIntermedias(["guardarCopias", "copiasConservadas"], function () {
-      mostrarEscena("informeEncontrado");
-      iniciarInformeEncontrado();
+      mostrarPasoTiempo("tiempoRevision", function () {
+        mostrarEscena("informeEncontrado");
+        iniciarInformeEncontrado();
+      });
     });
   });
 
@@ -303,8 +362,10 @@ function iniciarRegistros() {
     pruebasGuardadas = false;
     estados.pruebas = "Borradas";
     mostrarIntermedias(["borrarPruebas", "eliminacion"], function () {
-      mostrarEscena("informeEncontrado");
-      iniciarInformeEncontrado();
+      mostrarPasoTiempo("tiempoRevision", function () {
+        mostrarEscena("informeEncontrado");
+        iniciarInformeEncontrado();
+      });
     });
   });
 }
@@ -313,8 +374,12 @@ function iniciarLimpieza() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "limpieza") return;
-    mostrarEscena("informeEncontrado");
-    iniciarInformeEncontrado();
+    mostrarPasoTiempo("tiempoRevision", function () {
+      mostrarPasoTiempo("tiempoRevision", function () {
+        mostrarEscena("informeEncontrado");
+        iniciarInformeEncontrado();
+      });
+    });
   });
 }
 
@@ -404,8 +469,10 @@ function iniciarPistaAurora() {
     if (escenaActual !== "pistaAurora") return;
     investigacion = investigacion + 30;
     estados.pista = "Archivos_Guardados";
-    mostrarEscena("transicionNorthBio");
-    iniciarTransicionNorthBio();
+    mostrarPasoTiempo("tiempoConexion", function () {
+      mostrarEscena("transicionNorthBio");
+      iniciarTransicionNorthBio();
+    });
   });
 
   const terminar = document.querySelector("#terminar");
@@ -422,8 +489,10 @@ function iniciarNuevaPostulacion() {
   const continuar = document.querySelector("#continuar");
   continuar.addEventListener("click", function () {
     if (escenaActual !== "nuevaPostulacion") return;
-    mostrarEscena("llegadaNorthBio");
-    iniciarLlegadaNorthBio();
+    mostrarPasoTiempo("tiempoNuevaPostulacion", function () {
+      mostrarEscena("llegadaNorthBio");
+      iniciarLlegadaNorthBio();
+    });
   });
 }
 
@@ -470,8 +539,10 @@ function iniciarSalaRestringida() {
     if (escenaActual !== "salaRestringida") return;
     estados.sala = "Ignorada";
     mostrarIntermedias(["alejarseSala"], function () {
-      mostrarEscena("propuesta");
-      iniciarPropuesta();
+      mostrarPasoTiempo("tiempoConvocatoria", function () {
+        mostrarEscena("propuesta");
+        iniciarPropuesta();
+      });
     });
   });
 }
@@ -502,8 +573,10 @@ function iniciarDispositivoNeuronal() {
     if (escenaActual !== "dispositivoNeuronal") return;
     estados.dispositivo = "Ignorado";
     mostrarIntermedias(["salirDispositivo"], function () {
-      mostrarEscena("propuesta");
-      iniciarPropuesta();
+      mostrarPasoTiempo("tiempoConvocatoria", function () {
+        mostrarEscena("propuesta");
+        iniciarPropuesta();
+      });
     });
   });
 }
@@ -532,8 +605,10 @@ function iniciarTransferencia() {
     investigacion = investigacion + 10;
     estados.transferencia = "Camino_Seguido";
     mostrarIntermedias(["seguirDatos"], function () {
-      mostrarEscena("propuesta");
-      iniciarPropuesta();
+      mostrarPasoTiempo("tiempoConvocatoria", function () {
+        mostrarEscena("propuesta");
+        iniciarPropuesta();
+      });
     });
   });
 
@@ -542,8 +617,10 @@ function iniciarTransferencia() {
     if (escenaActual !== "transferencia") return;
     estados.transferencia = "Sistema_Cerrado";
     mostrarIntermedias(["cerrarSistema"], function () {
-      mostrarEscena("propuesta");
-      iniciarPropuesta();
+      mostrarPasoTiempo("tiempoConvocatoria", function () {
+        mostrarEscena("propuesta");
+        iniciarPropuesta();
+      });
     });
   });
 }
@@ -563,8 +640,10 @@ function iniciarPropuesta() {
   continuar.addEventListener("click", function () {
     if (escenaActual !== "propuesta") return;
     mostrarIntermedias(["detallePropuesta"], function () {
-      mostrarEscena("experimento");
-      iniciarExperimento();
+      mostrarPasoTiempo("tiempoExperimento", function () {
+        mostrarEscena("experimento");
+        iniciarExperimento();
+      });
     });
   });
 }

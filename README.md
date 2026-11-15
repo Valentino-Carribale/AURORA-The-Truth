@@ -1,87 +1,54 @@
-# AURORA: The Truth · Sprint 5
+# AURORA: The Truth
 
-Versión candidata jugable de punta a punta: diez decisiones, ocho finales y 62 recorridos completos. Se integraron los recursos terminados recibidos y las escenas intermedias. La única pieza multimedia pendiente es la cinemática MP4 inicial.
+Aventura narrativa de ciencia ficción, misterio y decisiones. Actualización final del 15/11/2026: voz interior de Annie, reproducción manual y paso del tiempo. Diez decisiones, 20 opciones, 62 recorridos completos y ocho finales. La cinemática MP4 de apertura sigue pendiente.
 
-## Abrir y jugar
+## Jugar localmente
 
-1. Descomprimí el ZIP.
-2. Abrí la carpeta `AURORA-The-Truth` en VS Code.
-3. Hacé clic derecho en `index.html` → **Open with Live Server**.
-4. Pulsá **Comenzar**. En la introducción podés continuar aunque el video todavía no esté disponible.
+Abrí la carpeta del proyecto en VS Code. Con Live Server instalado, hacé clic derecho sobre `index.html` y elegí **Open with Live Server**. No abrir con doble clic: los módulos JavaScript necesitan un servidor HTTP.
 
-No requiere instalar paquetes, compilar ni conectar una base de datos. Los `import`/`export` necesitan HTTP/HTTPS: abrir `index.html` con doble clic (`file://`) no sirve para ejecutar los módulos.
+También se puede usar `python -m http.server 8000` desde la carpeta del proyecto y abrir `http://localhost:8000`.
 
-También podés ejecutar `python -m http.server 5500` desde la carpeta del proyecto y abrir `http://localhost:5500/`.
+## Voces y navegación
 
-## Qué incluye esta versión
+- **Reproducir narrador** inicia la voz de Brian C. **Reproducir voz de Annie** inicia su pensamiento con Natalia.
+- Cada botón permite pausar, reanudar conservando la posición y repetir al finalizar. Las voces no se superponen.
+- Cambiar de escena detiene la voz anterior. Entrar a una escena y activar el sonido general no reproducen ninguna voz automáticamente.
+- El ambiente y los efectos conservan su funcionamiento. El ambiente baja mientras habla una voz.
+- El panel derecho presenta los pensamientos y emociones de Annie desde la introducción. Sus 14 variantes respetan lo que descubrió o decidió en cada recorrido.
+- Ocho pantallas temporales sitúan los días, semanas y meses de la historia. Cada una espera el botón Continuar, sin avance automático.
+- Todos los audios se sirven desde `assets`: no se necesita una cuenta ni una clave de ElevenLabs para jugar.
 
-- Los mismos diez nodos de decisión y los ocho desenlaces del Sprint 4.
-- 55 pantallas en total, incluidas portada, créditos y 22 nuevas intermedias.
-- Las 49 imágenes de escenas recibidas, tres GIF y 23 archivos de audio (75 medios únicos).
-- Los sonidos del CSV `assets/sonido/ESCENAS_Y_AUDIOS.csv`, asignados a sus escenas.
-- Once narraciones MP3 en sus respectivas intermedias. Al cambiar de escena se detiene la narración anterior.
-- Narración escrita en todas las escenas. **Leer narración** usa la grabación cuando existe o la voz en español del dispositivo cuando está disponible; esa voz no es un archivo incluido ni un servicio externo del juego.
-- **Silenciar sonido / Activar sonido** controla ambientes, música, efectos y narración. La preferencia se conserva durante la sesión.
-- Los GIF solamente aparecen sobre escenarios `SOLO_FONDO`: Annie en tecnología neuronal; empleado en la decisión de AURORA y en el despido previo a los finales 6 y 7.
-- Las imágenes de aceptar/rechazar funcionan como transiciones. Cada epílogo tiene su ilustración específica.
-- Navegación por teclado, foco en el título al cambiar de escena y adaptación móvil sin desbordamiento horizontal.
+## Organización
 
-`Madre.png`, los `.AI` y los `.FLA` se conservan como materiales de producción. No se cargan en el juego. La imagen de la madre queda destinada a la futura cinemática, según la aclaración del equipo.
-
-## Organización y código
-
-| Archivo o carpeta | Función |
+| Archivo | Contenido |
 | --- | --- |
-| `index.html` | Cabecera, navegación permanente, contenedor y pie |
-| `css/style.css` | Identidad visual, composición, superposiciones y responsive |
-| `js/app.js` | Variables, estados, renderizado, eventos y condiciones de finales |
-| `js/audio.js` | Reproducción, silenciamiento y lectura de narraciones |
-| `js/db/escenas.js` | Array exportado con textos, opciones y rutas de recursos |
-| `assets/` | Medios originales, fuentes de producción y CSV recibido |
-| `docs/` | Mapa de recursos, pruebas, publicación y seguimiento |
-| `tests/verificar.mjs` | Verificación de recorridos y recursos con Node.js, sin dependencias |
-| `sprints/` | Documentación y referencias del proyecto |
+| `index.html` | Cabecera, pantalla y créditos generales |
+| `css/style.css` | Identidad visual, panel de Annie y adaptación a pantalla |
+| `js/app.js` | Renderizado, decisiones, variables, intermedias y cronología |
+| `js/audio.js` | Ambientes y controles manuales de las dos voces |
+| `js/db/escenas.js` | Textos, opciones y recursos de las 63 pantallas |
+| `js/db/pensamientos.js` | 75 pensamientos o variantes y sus MP3 |
+| `assets/sonido/Narracion_Brian_C/` | 55 grabaciones del narrador |
+| `assets/sonido/Narracion_Annie_Natalia/` | 75 grabaciones de la voz interior |
+| `docs/` | Guiones, análisis narrativo, mapas, pruebas y publicación |
+| `tests/` | Comprobaciones de recorridos, recursos y reproducción |
 
-Se mantiene el enfoque de PokeApp: arrays, objetos, funciones, ciclos, condicionales, `querySelector`, `innerHTML` y `addEventListener`. No hay motor de juego ni framework. Los eventos de las diez decisiones siguen en funciones `iniciar...` de `app.js`.
+Se mantiene el estilo de módulos simples, datos separados, `innerHTML` y `addEventListener`, sin librerías ni procesos de compilación.
 
-`mostrarIntermedias(ids, continuar)` muestra una secuencia breve antes de retomar el destino original. Las recompensas se aplican solamente en el clic de decisión, nunca al continuar una intermedia.
+## Recursos y pruebas
 
-No hay guardado persistente: recargar vuelve al inicio. **Inicio** vuelve al menú; **Comenzar** y **Jugar otra vez** reinician las variables.
+205 recursos referenciados: 49 PNG de escenas, tres GIF, 23 audios originales, 55 MP3 de Brian C. y 75 MP3 de Natalia. Los once MP3 originales de las intermedias se conservan como respaldo del narrador. También permanecen las fuentes de producción y Madre.png para la futura cinemática.
 
-## Investigación y finales
+- `node tests/verificar.mjs`: 62 recorridos, ocho finales, puntos y límites, 75 pensamientos alcanzables, 205 recursos y cero grabaciones pendientes.
+- `node tests/audio.mjs`: reproducción manual, pausa/reanudación, exclusión de voces, silencio, navegación, eventos anteriores y respaldo.
+- Los 75 MP3 de Annie fueron decodificados sin errores. Los reportes de audio están en `docs/verificacion-audios-Annie.json` y `docs/verificacion-audios-BrianC.json`.
 
-La variable global `investigacion` no se muestra al jugador. Suma 10 por investigar anomalías, conservar copias, revisar anexos, investigar al responsable, entrar a la sala, inspeccionar el dispositivo y seguir los datos; seguir la pista de AURORA suma 30. El máximo real es 100. Entrar directamente a NorthBio permite llegar a 30.
+Las pruebas automáticas pasan. La comprobación visual de esta actualización en navegador y en teléfono físico queda pendiente porque la vista local no pudo abrirse en el entorno de revisión.
 
-| Final | Condición |
-| --- | --- |
-| 1 · Explicación oficial | Aceptar la explicación en NovaSphere |
-| 2 · Investigación inconclusa | Terminar la investigación en la pista AURORA |
-| 3 · Al otro lado del silencio | Aceptar el experimento, investigación menor que 50 |
-| 4 · Fragmentos de la verdad | Aceptar, investigación entre 50 y 99 |
-| 5 · AURORA: Awakening | Aceptar, investigación igual a 100 |
-| 6 · La puerta se cierra | Rechazar, investigación menor que 50 |
-| 7 · La verdad incompleta | Rechazar, investigación entre 50 y 99 |
-| 8 · La verdad, a cualquier precio | Rechazar, investigación igual a 100 |
+## Créditos y publicación
 
-Las demás variables y `estados` conservan las consecuencias: copias borradas o guardadas, informe cerrado, sala ignorada, dispositivo sin inspeccionar y transferencia sin rastrear. `empresaElegida` registra la primera postulación, aunque la historia pase después a NorthBio.
+Los créditos del equipo se conservan en el juego. Narrador: Brian C. Voz interior de Annie: Natalia - Versatile. Voces generadas con ElevenLabs, con atribución `elevenlabs.io`. Las grabaciones de la prueba gratuita se destinan al uso no comercial con atribución.
 
-## Agregar la cinemática inicial
+Música: Sad Trio, Kevin MacLeod (incompetech.com), Creative Commons BY 4.0. Más información en `docs/recursos-sprint5.md`.
 
-1. Guardá el MP4 terminado en `assets/videos/introduccion.mp4` (creá la carpeta si hace falta).
-2. En `js/db/escenas.js`, buscá `id: "introduccion"`.
-3. Completá `cinematica: "./assets/videos/introduccion.mp4"`.
-4. Probalo por HTTP: aparecen los controles del video y desaparece el único espacio pendiente. **Continuar** permanece disponible.
-
-Para conservar audio y video compatibles, exportá MP4 con video H.264 y audio AAC. El cargador también conserva soporte para animaciones de video MP4/WebM/Ogg; los GIF se insertan como imágenes animadas.
-
-## Verificación y entrega
-
-Ejecutá `node tests/verificar.mjs` para comprobar las rutas de recursos, las 20 opciones, los 62 recorridos, los límites 49/50 y 99/100, los ocho finales y el reinicio.
-
-- [Guía de publicación](docs/publicar-en-internet.md).
-- [Pruebas y correcciones del Sprint 5](docs/pruebas-sprint5.md).
-- [Mapa y criterios de recursos](docs/recursos-sprint5.md).
-- [Relación completa de escenas y archivos](docs/mapa-recursos-sprint5.csv).
-- [Pendientes y evidencias de entrega](docs/entrega-sprint5.md).
-
-Los documentos del Sprint 3 y 4 se conservan como historial y describen aquellas versiones. El estado actual es el de este README y los documentos del Sprint 5.
+Para actualizar la publicación existente, seguí `docs/Actualizar_AURORA_en_GitHub.md`. Para consultar la historia y cronología ampliadas, leé `docs/Annie_historia_y_actualizacion.md`.
