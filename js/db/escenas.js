@@ -1326,7 +1326,7 @@ export const escenas = [
     tipo: "intermedia",
     imagen: "./assets/img/NorthBio/13_propuesta_AURORA_SOLO_FONDO.png",
     personaje: "",
-    animacion: "",
+    animacion: "./assets/animaciones/Animación-Despido-Rechazo-NorthBio-AURORA-The-Truth.gif",
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
