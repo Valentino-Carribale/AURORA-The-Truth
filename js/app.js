@@ -83,6 +83,13 @@ function mostrarEscena(id) {
       for (const parrafo of escena.textos) {
         texto.innerHTML += `<p>${parrafo}</p>`;
       }
+      if (escena.instrucciones) {
+        let pasos = "";
+        for (const instruccion of escena.instrucciones) {
+          pasos += `<li>${instruccion}</li>`;
+        }
+        texto.innerHTML += `<aside class="instrucciones" aria-labelledby="titulo-instrucciones"><h3 id="titulo-instrucciones">Cómo jugar</h3><ul>${pasos}</ul></aside>`;
+      }
 
       const opciones = document.querySelector("#opciones");
       if (escena.pregunta !== "") {
@@ -166,6 +173,7 @@ function cargarRecursos(escena) {
     const ruta = escena.animacion || escena.personaje;
     personaje.hidden = false;
     personaje.classList.add(escena.posicion || "annie");
+    if (escena.primerPlano) personaje.classList.add("primer-plano");
     if (/\.(mp4|webm|ogv|ogg)$/i.test(ruta)) {
       personaje.innerHTML = `<video src="${ruta}" autoplay muted playsinline aria-label="Animación de ${escena.titulo}"></video>`;
     } else {
@@ -282,11 +290,7 @@ function iniciarPostulacion() {
   const novasphere = document.querySelector("#novasphere");
   novasphere.addEventListener("click", function () {
     if (escenaActual !== "postulacion") return;
-    empresaElegida = "NovaSphere";
-    mostrarPasoTiempo("tiempoNovaSphere", function () {
-      mostrarEscena("primerDia");
-      iniciarPrimerDia();
-    });
+    comenzarNovaSphere();
   });
 
   const northbio = document.querySelector("#northbio");
@@ -297,6 +301,14 @@ function iniciarPostulacion() {
       mostrarEscena("llegadaNorthBio");
       iniciarLlegadaNorthBio();
     });
+  });
+}
+
+function comenzarNovaSphere() {
+  empresaElegida = "NovaSphere";
+  mostrarPasoTiempo("tiempoNovaSphere", function () {
+    mostrarEscena("primerDia");
+    iniciarPrimerDia();
   });
 }
 
@@ -674,6 +686,22 @@ function iniciarExperimento() {
 
 function iniciarFinal() {
   const idFinal = escenaActual;
+  if (finalAlcanzado >= 3) {
+    const opciones = document.querySelector("#opciones");
+    const invitacion = "Para conocer el secreto completo de AURORA, podrías empezar una nueva partida en NovaSphere e investigar si hay una conexión con NorthBio. Tal vez las pistas de una empresa ayuden a entender lo que ocurre en la otra.";
+    opciones.innerHTML = `
+      <aside class="sugerencia-final" aria-labelledby="titulo-rejugar">
+        <h3 id="titulo-rejugar">La verdad tiene otra perspectiva</h3>
+        <p>${invitacion}</p>
+        <button type="button" class="primario" id="jugar-novasphere">Volver a jugar desde NovaSphere</button>
+      </aside>
+    ` + opciones.innerHTML;
+    document.querySelector("#jugar-novasphere").addEventListener("click", function () {
+      if (escenaActual !== idFinal) return;
+      reiniciarVariables();
+      comenzarNovaSphere();
+    });
+  }
   const volver = document.querySelector("#volver");
   volver.addEventListener("click", function () {
     if (escenaActual !== idFinal) return;

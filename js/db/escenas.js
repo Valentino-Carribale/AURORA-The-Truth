@@ -17,6 +17,11 @@ export const escenas = [
       "¿Hasta dónde llegarías para descubrir la verdad?",
       "Una aventura narrativa de ciencia ficción, misterio y decisiones.",
     ],
+    instrucciones: [
+      "Durante la historia, interactuás desde el panel derecho. En el celular, aparece debajo de la escena.",
+      "Ahí podés leer la narración y los pensamientos de Annie, o escucharlos con sus botones de reproducir y pausar.",
+      "Hacé clic en Continuar para avanzar y en los botones de decisión para elegir qué hace Annie. Tus decisiones cambian el desenlace.",
+    ],
     pregunta: "",
     opciones: [
       { id: "comenzar", texto: "Comenzar" },
@@ -474,6 +479,7 @@ export const escenas = [
     personaje: "",
     animacion: "./assets/animaciones/Animación-Sorpresa-N8-Annie-AURORA-The-Truth.gif",
     posicion: "annie",
+    primerPlano: true,
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
       "./assets/sonido/Efectos/D2_encendido_interfaz.wav",
@@ -573,6 +579,7 @@ export const escenas = [
     personaje: "",
     animacion: "./assets/animaciones/Animación-Hablando-N10-NorthBio-AURORA-The-Truth.gif",
     posicion: "empleado",
+    primerPlano: true,
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],
@@ -1327,6 +1334,7 @@ export const escenas = [
     imagen: "./assets/img/NorthBio/13_propuesta_AURORA_SOLO_FONDO.png",
     personaje: "",
     animacion: "./assets/animaciones/Animación-Despido-Rechazo-NorthBio-AURORA-The-Truth.gif",
+    primerPlano: true,
     sonidos: [
       "./assets/sonido/Ambientes/A_ambiente_laboratorio.wav",
     ],

@@ -128,6 +128,19 @@ main {
   right: 8%;
 }
 
+/* Primer plano en los GIF de NorthBio; el final de NovaSphere conserva su encuadre. */
+.personaje.primer-plano {
+  left: 0;
+  width: 56%;
+  height: 96%;
+  overflow: hidden;
+}
+
+.personaje.empleado.primer-plano {
+  left: auto;
+  right: 0;
+}
+
 .escenario img,
 .personaje img,
 .personaje video,
@@ -140,6 +153,49 @@ main {
 
 .escenario img {
   object-fit: contain;
+}
+
+.personaje.primer-plano img {
+  position: absolute;
+  top: -4%;
+  left: 50%;
+  width: auto;
+  max-width: none;
+  height: 310%;
+  transform: translateX(-50%);
+}
+
+.instrucciones,
+.sugerencia-final {
+  padding: 18px;
+  border-left: 2px solid var(--acento);
+  background-color: #0c1822;
+  color: var(--secundario);
+  font-size: 14px;
+}
+
+.instrucciones {
+  margin: 22px 0;
+}
+
+.instrucciones h3,
+.sugerencia-final h3 {
+  margin-bottom: 10px;
+  color: var(--texto);
+  font-size: 17px;
+}
+
+.instrucciones ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.instrucciones li + li {
+  margin-top: 8px;
+}
+
+.sugerencia-final p {
+  margin-bottom: 14px;
 }
 
 .decision {
@@ -447,7 +503,7 @@ footer {
   }
 }
 
-/* Solo la cinemática inicial conserva un espacio pendiente. */
+/* Oculta los recursos y controles que no corresponden a la escena. */
 [hidden] {
   display: none !important;
 }
