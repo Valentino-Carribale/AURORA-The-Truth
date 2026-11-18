@@ -31,7 +31,7 @@ export const escenas = [
     etiqueta: "INTRODUCCIÓN",
     tema: "cyan",
     tipo: "narrativa",
-    cinematica: "", // Completar con ./assets/videos/introduccion.mp4 cuando esté lista.
+    cinematica: "./assets/animaciones/AURORA_Introduccion.mp4",
     imagen: "",
     personaje: "",
     animacion: "",
