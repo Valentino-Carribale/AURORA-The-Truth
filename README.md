@@ -52,32 +52,6 @@ No requiere instalación de paquetes, compilación, base de datos externa ni cla
 2. Con la extensión **Live Server** instalada, hacé clic derecho en `index.html`.
 3. Elegí **Open with Live Server**.
 
-### Servidor de Python
-
-Desde la carpeta del proyecto:
-
-```bash
-python -m http.server 8000
-```
-
-Abrí `http://localhost:8000`. En Windows también podés usar `py -m http.server 8000`.
-
-El proyecto utiliza módulos JavaScript: debe servirse mediante HTTP. Abrir `index.html` con doble clic mediante `file://` puede impedir la carga de esos módulos.
-
-## Publicación en GitHub Pages
-
-El juego también puede abrirse directamente desde **[GitHub Pages](https://valentino-carribale.github.io/AURORA-The-Truth/)**, sin instalar Live Server.
-
-Para publicar o actualizar esta versión:
-
-1. Subí los archivos a la rama `main`, conservando `index.html`, `css/`, `js/` y `assets/` en la raíz del repositorio.
-2. En GitHub, abrí **Settings → Pages**.
-3. En **Build and deployment**, elegí **Deploy from a branch**, la rama **main** y la carpeta **/ (root)**. Guardá los cambios.
-4. Esperá a que termine el despliegue y abrí el enlace que muestra GitHub Pages.
-5. Revisá la cinemática, las imágenes, los GIF y ambas voces desde la página publicada. Si el navegador conserva una versión anterior, actualizá con `Ctrl + F5`.
-
-Las rutas son relativas para que los módulos y recursos funcionen dentro de `/AURORA-The-Truth/`. Conservá exactamente los nombres de archivos, las mayúsculas, los acentos y la estructura de carpetas. Para actualizar el código, reemplazá `README.md`, `js/app.js`, `js/db/escenas.js` y `css/style.css` por los de esta entrega. Si reemplazás todo el proyecto, asegurate de subir también los recursos.
-
 ## Organización del proyecto
 
 | Ubicación | Contenido |
@@ -109,20 +83,9 @@ Los MP3 y el MP4 están incluidos en `assets`. **Para jugar no hace falta una cu
 
 Los GIF se cargan como imágenes animadas y mantienen su reproducción y transparencia. Los primeros planos se realizan con CSS en Sorpresa N8, Hablando N10 y el rechazo del experimento en NorthBio; no modifican los archivos originales. La animación de los finales de NovaSphere mantiene su encuadre completo.
 
-## Verificación y playtesting
+## Sprints, verificación y playtesting
 
-La revisión técnica de esta entrega comprende los recorridos, los ocho finales, el rango de investigación, el reinicio de variables y las rutas de los recursos. El inventario actual contiene **207 recursos referenciados**, incluida la cinemática y los cuatro GIF.
-
-El **registro de sesiones de playtesting y sus devoluciones queda a cargo del equipo en la entrega del Sprint 5**. Para repetir la revisión con jugadores, conviene comprobar:
-
-- Que comprendan las instrucciones iniciales, encuentren el panel de interacción y distingan la narración del pensamiento de Annie.
-- Que puedan reproducir, pausar y reanudar las voces y la cinemática sin superposiciones.
-- Que los primeros planos de N8, N10 y el rechazo de NorthBio se distingan y la animación final de NovaSphere conserve su encuadre completo.
-- Que completen un recorrido de NorthBio, usen la invitación a volver a jugar y comiencen una partida nueva desde NovaSphere.
-- Que las decisiones de ambos tramos permitan alcanzar 100 de investigación y obtener los desenlaces correspondientes.
-- Que la lectura, los botones y los recursos se mantengan utilizables en escritorio y celular, tanto localmente como en GitHub Pages.
-
-Para cada sesión, el equipo puede registrar el recorrido, el resultado esperado, lo observado y el ajuste realizado. Las comprobaciones del código y los recursos acompañan ese registro, pero no reemplazan las observaciones de los jugadores.
+El registro de archivos y cambios llevados a cabo a lo largo de todo el proyecto (documentación y producción técnica) se encuentran accesibles en la carpeta `sprints`, PDFs de últimas iteraciones más el mapa de decisiones y el storyboard de la cinemática inicial.
 
 ## Equipo y créditos
 
